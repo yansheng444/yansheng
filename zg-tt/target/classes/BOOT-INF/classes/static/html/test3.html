@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-2.2.3.min.js"></script>
+</head>
+<body>
+	<div id="code">
+		
+	</div>
+
+</body>
+
+<script>
+
+		//获取location url的参数kaid
+		function GetQueryString(name) { 
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i"); 
+			var r = window.location.search.substr(1).match(reg); 
+			if (r!=null) return (r[2]); return null; 
+		}
+
+		
+	        $.ajax({
+	    		type:"get",
+	    		url:"http://alipay.vaiwan.com/alipay/oldpay",
+	    		async:true,
+	    		data : {"orderno":GetQueryString("orderno")},
+	    		dataType : "json",
+	    		success : function(data) {
+	    			//console.log(data);
+	    			
+	    			
+	    			$("#code").append(data.data);
+//	    			if(data.code == 1000){
+//	    				console.log(data.data);
+//	    			}else{
+//	    				alert(data.msg);
+//	    			}
+	    		},
+	    		error : function(data){
+//	    			alert("扫码失败");
+	    		}
+	    		
+	    		
+	    	});		
+	        		
+	        		
+	
+	
+
+</script>
+</html>
