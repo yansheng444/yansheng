@@ -1,0 +1,10 @@
+
+
+1 redis key 过期删除策略，定期删除和惰性删除
+	定期删除是指redis会后台定时随机删除指定了过期时间的key
+	惰性删除是指每次get命令的时候redis会先检查key的过期时间，如果过期，返回n	il并删除
+
+2 redis 持久化策略，
+	RDB持久化：RDB持久化是通过快照完成的，当符合一定条件的时候，redis会		自动将所有数据以二进制方式生成一个副本并存储硬盘上。当redis重启时，并且A	OF持久化未开启是，redis会读取RDB持久化生成的二进制文件，默认dump.rdb，进	行数据恢复
+
+	AOF持久化：AOF（append only file）,将命令追加到文件。AOF可以将redis执行的每一条命令追加到磁盘文件appendonly.aof中，在redis启动时候有限选择从AOF文件恢复数据。与RDB相比，AOF持久化数据丢失更少，消耗内存更少
