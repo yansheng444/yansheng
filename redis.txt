@@ -9,4 +9,4 @@
 
 	AOF持久化：AOF（append only file）,将命令追加到文件。AOF可以将redis执行的每一条命令追加到磁盘文件appendonly.aof中，在redis启动时候有限选择从AOF文件恢复数据。与RDB相比，AOF持久化数据丢失更少，消耗内存更少
 
-	----end----
+
