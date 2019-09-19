@@ -1,0 +1,14 @@
+*{margin:0;padding:0;font-family: "微软雅黑";}
+ul,ol,li{list-style:none;overflow-x: hidden;}
+a{text-decoration:none;}
+html,body{width:100%;
+overflow-x: hidden;
+}
+#footer{
+	background: #fff;
+}
+.left{float:left;}
+.right{float:right;}
+.clear{overflow: hidden;}
+.hidden{display: none;}
+.clearFix:after{clear: both;content: '';display: block;}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta http-equiv="Access-Control-Allow-Origin" content="*">-->
+		<title>xiug</title>
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<script src="js/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/config.js"></script>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				font-family: "微软雅黑";
+			}
+			
+			body {
+				background: #fafafa;
+			}
+			
+			.clearfix:after {
+				content: "";
+				clear: both;
+				display: block;
+			}
+			
+			.left {
+				float: left;
+			}
+			
+			.right {
+				float: right;
+			}
+			
+			.header {
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				background: #006CFF;
+				color: white;
+			}
+			
+			.logo {
+				margin-left: 36px;
+			}
+			
+			#content {
+				width: 1160px;
+				margin: 0px auto;
+				padding: 20px 20px;
+				background: #ffffff;
+			}
+			
+			.con {
+				height: 44px;
+				line-height: 44px;
+				margin-bottom: 20px;
+			}
+			
+			.cona {
+				line-height: 44px;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			
+			.conb {
+				line-height: 44px;
+				margin-bottom: 20px;
+				margin-left: 140px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="header clearfix">
+			<div class="head left">
+				<img src="img/neibu225x50.jpg" alt="" class="logo" />
+			</div>
+			<div id="back" class="right" style="margin-right: 200px;font-weight: 400;cursor: pointer;">
+				返回首页
+			</div>
+			<div id="back1" class="right" style="margin-right: 20px;font-weight: 400;cursor: pointer;">
+				返回上一页
+			</div>
+		</div>
+		<div id="content">
+			<div id="" style="padding: 5px;margin-bottom: 40px;">
+				<div class="con">
+					<span style="font-size:18px;">修改检查点：</span></div>
+				<div class="conb clearfix">
+					<div class="left" style="width:200px; ">input</div>
+					<div class="conc_input left"><input type="text" class="inp"/></div>
+				</div>
+				<div class="conb clearfix">
+					<div class="left" style="width:200px; ">datasourceId</div>
+					<div class="conc_datasourceId left">
+						<select name=""  class="datasourceId1">
+						</select>
+					</div>
+				</div>
+				<div class="conb clearfix">
+					<div class="left" style="width:200px; ">name</div>
+					<div class="conc_name left"><input type="text" class="name"/></div>
+				</div>
+				<div class="conb clearfix">
+					<div class="left" style="width:200px; ">cron</div>
+					<div class="conc_time_delay left"><input type="text" class="time_delay"/></div>
+				</div>
+				</div>
+				<div class="con">
+					<div class="baoc" style="width: 102px;height: 42px;background: #26b8fb;color: white;text-align: center;line-height: 42px;border-radius: 7px;cursor: pointer;margin: 0 auto;">保存</div>
+				</div>
+
+			</div>
+
+			<script>
+				$(function() {
+					$("#back").off("click").click(function() {
+						location.href = 'index.html'
+					})
+					$("#back1").off("click").click(function(){
+						window.history.go(-1);
+					})
+					$(".inp").val(localStorage.getItem("input"));
+					$(".name").val(localStorage.getItem("name"));
+					
+					$(".time_delay").val(localStorage.getItem("time_delay"));
+					
+					
+					var pointid = localStorage.getItem("pointid");
+					
+					$.ajax({
+						type: "post",
+						url:http+"datasource/data",
+						async: true,
+						data : {"id":pointid},
+						dataType: 'json',
+						success: function(res) {
+							console.log(res);
+							if(res.status == 1000) {
+								for(var a = 0; a < res.data.length; a++) {
+									$(".datasourceId1").append('<option id=' + res.data[a].password + ' value=' + res.data[a].id + '>' + res.data[a].detail + '</option>');
+								}
+							} else {
+								alert(res.msg);
+							}
+						},
+						error: function(res) {
+							console.log("错误" + res);
+						}
+					});
+					
+					var data = {};
+					var dat = [];
+					$.each($('input'), function() {
+						$(this).change(function(){
+//							console.log($(this).parent().siblings('div').text());
+//							console.log($(this).val());
+							data = {
+								"id":pointid,
+								"input":$(".inp").val(),
+								"name":$(".name").val(),
+								"datasourceId":$(".datasourceId").val(),
+								"condition":$(".time_delay").val()
+							}
+							
+							console.log(data);
+							})
+						$(".baoc").off("click").click(function() {
+						
+							console.log(data);
+							$.ajax({
+								headers: {
+									Accept: "application/json; charset=utf-8"
+								},
+								type: "post",
+								url: http + "/checkPoint/update",
+								async: true,
+								data: data,
+								dataType: 'json',
+								success: function(res) {
+									console.log(res);
+									if(res.status == 1000){
+										alert("修改成功！");
+										window.history.go(-1);
+									}else{
+										alert(res.msg);
+									}
+									
+								},
+								error: function(res) {
+									console.log("错误" + res);
+								}
+							});
+						})
+					});
+
+				})
+			</script>
+	</body>
+
+</html>

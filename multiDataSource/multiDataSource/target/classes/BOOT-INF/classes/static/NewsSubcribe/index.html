@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>消息订阅</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<!--<script src="js/hammer.min.js"></script>-->
+		<!--<script src="js/slide2del.js"></script>-->
+		<link rel="stylesheet" href="css/config.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script src="js/config.js"></script>
+		<script src="js/search.js"></script>
+
+		<style>
+			body {
+				/*background: #f7f6f9;*/
+				color: #333;
+				overflow-x: hidden;
+			}
+			
+			#content1 {
+				width: 100%;
+				height: 1rem;
+				font-size: 0.4rem;
+				background: #F6F6F6;
+			}
+			
+			.content1_sea1 {
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				overflow: hidden;
+				position: relative;
+				display: flex;
+				align-content: space-around;
+			}
+			
+			#search {
+				width: 20%;
+				font-size: 0.26rem;
+				color: #999;
+				text-align: center;
+				line-height: 1rem;
+				margin-left: 0.2rem;
+			}
+			
+			.inputSearch1 {
+				width: 86%;
+				height: 0.5rem;
+				padding: 1%;
+				border: none;
+				font-size: 0.3rem;
+				text-indent: 0.2rem;
+				line-height: 0.5rem;
+				margin-top: 0.22rem;
+				margin-bottom: 0.22rem;
+				margin-left: 0.2rem;
+				border-radius: 0.18rem;
+				position: relative;
+				background: url(img/ss.png) no-repeat;
+				background-color: #e6e6e6;
+				background-position: 3% 55%;
+				padding-left: 6%;
+				background-size: 0.32rem 0.32rem;
+			}
+			
+			.back {
+				color: #777777;
+				margin-top: 0.32rem;
+				font-size: 0.3rem;
+				text-align: center;
+				margin-left: 0.2rem;
+			}
+			
+			.back img {
+				width: 0.2rem;
+				height: 0.2rem;
+			}
+		</style>
+	</head>
+
+	<body id='main'>
+
+		<div id='content1' class="clearFix">
+			<div class="left back" style="display: none;"><img src="img/u=2608441410,1471220549&fm=27&gp=0.jpg" alt="" /></div>
+
+			<div class="input-group content1_sea1 left clearFix">
+				<input type="text" class="inputSearch1 left" id="keywords" placeholder="搜索">
+				<div class="left search" id="search" style="display: none;">search</div>
+			</div>
+
+		</div>
+
+		<div class="one">
+
+			<div class="con" id="con1">
+				<p class="biaot">最热主题</p>
+				<ul class="con_ul1 clearFix" id="hot">
+					<!--<li class="index_fenl kl" style="background: #9DC296;" id="12"><div class="left txt_neir">无</div><img src="http://filed.98ep.com//SapFile/ordernoticefile/huikuan.png" alt="" class="right txt_tu"/></li>-->
+					<li class="index_fenl kl" style="background: #3F00ED;">
+						<div class="left txt_neir">无</div><img src="http://filed.98ep.com//SapFile/ordernoticefile/huikuan.png" alt="" class="right txt_tu" /></li>
+					<li class="index_fenl kl" style="background: #78D0C0;">
+						<div class="left txt_neir">无</div><img src="http://filed.98ep.com//SapFile/ordernoticefile/huikuan.png" alt="" class="right txt_tu" /></li>
+					<li class="index_fenl kl" style="background: #469580;">
+						<div class="left txt_neir">无</div><img src="http://filed.98ep.com//SapFile/ordernoticefile/huikuan.png" alt="" class="right txt_tu" /></li>
+				</ul>
+			</div>
+
+			<div class="con" id="con2">
+				<p class="biaot">主题分组</p>
+				<ul class="con_ul clearFix">
+					<!--["F69C24","B297C4","4B907D","9BBFCD","4E9AF2","9DBDCC","F69C24","B297C4","4B907D","9BBFCD","4E9AF2","9DBDCC","F69C24","B297C4","4B907D","9BBFCD","4E9AF2","9DBDCC"];-->
+					<li class="index_fenl kl1 left clearFix" style="background:#9DBDCC;">
+						<div class="left txt_neir">无</div>
+						<!--<img src="img/标记回款.png" alt="" class="right txt_tu"/>-->
+					</li>
+					<li class="index_fenl kl1 left clearFix" style="background:#4E9AF2;">
+						<div class="left txt_neir">无</div>
+						<!--<img src="img/标记回款.png" alt="" class="right txt_tu"/>-->
+					</li>
+					<li class="index_fenl kl1 left clearFix" style="background:#9BBFCD;">
+						<div class="left txt_neir">无</div>
+						<!--<img src="img/标记回款.png" alt="" class="right txt_tu"/>-->
+					</li>
+					<li class="index_fenl kl1 left clearFix" style="background:#4B907D;">
+						<div class="left txt_neir">无</div>
+						<!--<img src="img/标记回款.png" alt="" class="right txt_tu"/>-->
+					</li>
+					<li class="index_fenl kl1 left clearFix" style="background:#B297C4;">
+						<div class="left txt_neir">无</div>
+						<!--<img src="img/标记回款.png" alt="" class="right txt_tu"/>-->
+					</li>
+				</ul>
+			</div>
+			<div style="width: 100%;height: 0.82rem;"></div>
+
+			<div id='footer' class="clearFix">
+				<div class="zhuti left">
+					<img src="img/zt.png" alt="" class="zhut" />
+					<img src="img/zt0.png" alt="" class="zhut" style="display: none;" />
+					<div class="zhut_z act">主题</div>
+				</div>
+				<div class="mine left">
+					<img src="img/wd.png" class="min" style="display: none;" />
+					<img src="img/wd0.png" class="min" />
+					<div class="min_z">我的</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="two" style="display: none;">
+			<div class="a1">
+				<ul class="clearFix">
+					<li class="left">搜索历史:</li>
+					<li class="right" id="empty">清空历史</li>
+				</ul>
+			</div>
+			<div id="history">
+				<ul class="hist_ul">
+
+				</ul>
+			</div>
+		</div>
+
+		<script>
+			$(function() {
+				localStorage.removeItem("fenz_id");
+				localStorage.removeItem("fenz_txt");
+				localStorage.removeItem("rem_id");
+
+				//				for(var i = 0; i < 4; i++){
+				//					var arr = ["9DC296","3F00ED","78D0C0","469580"];
+				//					console.log(arr[i])
+				//				}
+
+				//线上
+				localStorage.setItem("user_id", GetQueryString("userid"));
+				var userid = localStorage.getItem("user_id");
+				//本地
+//				var userid = 30947;
+//				localStorage.setItem("user_id", userid);
+
+				//请求热门数据
+				$.ajax({
+					type: "post",
+					url: http + "trigger/hotFront?userid=" + GetQueryString("userid"),
+//					url: http + "trigger/hotFront?userid=" + userid,
+					async: true,
+					dataType: 'json',
+					success: function(res) {
+						console.log(res);
+						if(res.status == 1000) {
+							for(var a = 0; a < res.data.length; a++) {
+								if(res.data.length == 0) {
+									$("#hot .kl").remove();
+									$("#con1").append('<p style="font-size: 0.24rem;color: #a2a2a2;line-height: 0.6rem;">目前没有最热！</p>');
+								}
+								if(res.data.length == 1) {
+									var arr = ["9DC296", "3F00ED", "78D0C0", "469580", "9DC296", "3F00ED", "78D0C0", "469580", "9DC296", "3F00ED", "78D0C0", "469580"];
+									//								console.log(res.data[a].name);
+
+									//接口里没有图片地址
+									//									$("#hot").append('<li class="index_fenl" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';">'+res.data[a].name+'</li>');
+
+									//接口里有图片地址
+									$("#hot").prepend('<li class="index_fenl rem left clearFix" is_sub=' + res.data[a].is_sub + ' id=' + res.data[a].id + ' check_id=' + res.data[a].check_id + ' group_id=' + res.data[a].group_id + ' style="background: #' + arr[a] + ';"><div class="left txt_neir">' + res.data[a].name + '</div><img src=' + res.data[a].img_url + ' alt="" class="right txt_tu"/></li>');
+								}
+
+								if(res.data.length == 2) {
+									$("#hot .kl").eq(2).remove();
+									var arr = ["9DC296", "3F00ED", "78D0C0", "469580", "9DC296", "3F00ED", "78D0C0", "469580", "9DC296", "3F00ED", "78D0C0", "469580"];
+									//								console.log(res.data[a].name);
+
+									//接口里没有图片地址
+									//									$("#hot").append('<li class="index_fenl" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';">'+res.data[a].name+'</li>');
+
+									//接口里有图片地址
+									$("#hot").prepend('<li class="index_fenl rem left clearFix" is_sub=' + res.data[a].is_sub + ' id=' + res.data[a].id + ' check_id=' + res.data[a].check_id + ' group_id=' + res.data[a].group_id + ' style="background: #' + arr[a] + ';"><div class="left txt_neir">' + res.data[a].name + '</div><img src=' + res.data[a].img_url + ' alt="" class="right txt_tu"/></li>');
+								}
+
+								if(res.data.length == 3) {
+									$("#hot kl").eq(1).remove();
+									var arr = ["9DC296", "3F00ED", "78D0C0", "469580", "9DC296", "3F00ED", "78D0C0", "469580", "9DC296", "3F00ED", "78D0C0", "469580"];
+									//								console.log(res.data[a].name);
+
+									//接口里没有图片地址
+									//									$("#hot").append('<li class="index_fenl" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';">'+res.data[a].name+'</li>');
+
+									//接口里有图片地址
+									$("#hot").prepend('<li class="index_fenl rem left clearFix" is_sub=' + res.data[a].is_sub + ' id=' + res.data[a].id + ' check_id=' + res.data[a].check_id + ' group_id=' + res.data[a].group_id + ' style="background: #' + arr[a] + ';"><div class="left txt_neir">' + res.data[a].name + '</div><img src=' + res.data[a].img_url + ' alt="" class="right txt_tu"/></li>');
+								}
+								if(res.data.length == 4) {
+									$("#hot kl").eq(0).remove();
+									var arr = ["9DC296", "3F00ED", "78D0C0", "469580", "9DC296", "3F00ED", "78D0C0", "469580", "9DC296", "3F00ED", "78D0C0", "469580"];
+									//								console.log(res.data[a].name);
+
+									//接口里没有图片地址
+									//									$("#hot").append('<li class="index_fenl" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';">'+res.data[a].name+'</li>');
+
+									//接口里有图片地址
+									$("#hot").prepend('<li class="index_fenl rem left clearFix" is_sub=' + res.data[a].is_sub + ' id=' + res.data[a].id + ' check_id=' + res.data[a].check_id + ' group_id=' + res.data[a].group_id + ' style="background: #' + arr[a] + ';"><div class="left txt_neir">' + res.data[a].name + '</div><img src=' + res.data[a].img_url + ' alt="" class="right txt_tu"/></li>');
+								}
+
+							}
+							fun();
+						} else {
+							alert(res.msg);
+						}
+					},
+					error: function(res) {
+						console.log("错误" + res);
+					}
+				});
+
+				//请求组名数据
+				$.ajax({
+					type: "post",
+					//					url: http + "group/data?userid=" + GetQueryString("userid"),
+					url: http + "group/data?userid=" + userid,
+					async: true,
+					dataType: 'json',
+					success: function(res) {
+						console.log(res);
+						if(res.status == 1000) {
+							for(var a = 0; a < res.data.length; a++) {
+
+								if(res.data.length == 0) {
+									$(".con_ul .kl1").remove();
+									$("#con2").append('<p style="font-size: 0.24rem;color: #a2a2a2;line-height: 0.6rem;">暂无数据！</p>');
+								}
+								if(res.data.length == 1) {
+
+									var arr = ["F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC"];
+									//没有图
+									$(".con_ul").prepend('<li class="index_fenl fenz" id=' + res.data[a].id + ' style="background: #' + arr[a] + ';">' + res.data[a].group_name + '</li>');
+									//									//接口里有图片地址
+									//									$(".con_ul").append('<li class="index_fenl left clearFix" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';"><div class="left txt_neir">'+res.data[a].name+'</div><img src='+res.data[a].img_url+' alt="" class="right txt_tu"/></li>');
+
+								}
+								if(res.data.length == 2) {
+									$(".con_ul .kl1").eq(4).remove();
+
+									var arr = ["F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC"];
+									//没有图
+									$(".con_ul").prepend('<li class="index_fenl fenz" id=' + res.data[a].id + ' style="background: #' + arr[a] + ';">' + res.data[a].group_name + '</li>');
+									//									//接口里有图片地址
+									//									$(".con_ul").append('<li class="index_fenl left clearFix" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';"><div class="left txt_neir">'+res.data[a].name+'</div><img src='+res.data[a].img_url+' alt="" class="right txt_tu"/></li>');
+
+								}
+								if(res.data.length == 3) {
+									$(".con_ul .kl1").eq(3).remove();
+
+									var arr = ["F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC"];
+									//没有图
+									$(".con_ul").prepend('<li class="index_fenl fenz" id=' + res.data[a].id + ' style="background: #' + arr[a] + ';">' + res.data[a].group_name + '</li>');
+									//									//接口里有图片地址
+									//									$(".con_ul").append('<li class="index_fenl left clearFix" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';"><div class="left txt_neir">'+res.data[a].name+'</div><img src='+res.data[a].img_url+' alt="" class="right txt_tu"/></li>');
+
+								}
+								if(res.data.length == 4) {
+									$(".con_ul .kl1").eq(2).remove();
+
+									var arr = ["F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC"];
+									//没有图
+									$(".con_ul").prepend('<li class="index_fenl fenz" id=' + res.data[a].id + ' style="background: #' + arr[a] + ';">' + res.data[a].group_name + '</li>');
+									//									//接口里有图片地址
+									//									$(".con_ul").append('<li class="index_fenl left clearFix" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';"><div class="left txt_neir">'+res.data[a].name+'</div><img src='+res.data[a].img_url+' alt="" class="right txt_tu"/></li>');
+
+								}
+								if(res.data.length == 5) {
+									$(".con_ul .kl1").eq(1).remove();
+
+									var arr = ["F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC"];
+									//没有图
+									$(".con_ul").prepend('<li class="index_fenl fenz" id=' + res.data[a].id + ' style="background: #' + arr[a] + ';">' + res.data[a].group_name + '</li>');
+									//									//接口里有图片地址
+									//									$(".con_ul").append('<li class="index_fenl left clearFix" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';"><div class="left txt_neir">'+res.data[a].name+'</div><img src='+res.data[a].img_url+' alt="" class="right txt_tu"/></li>');
+
+								}
+								if(res.data.length == 6) {
+									$(".con_ul .kl1").eq(0).remove();
+
+									var arr = ["F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC", "F69C24", "B297C4", "4B907D", "9BBFCD", "4E9AF2", "9DBDCC"];
+									//没有图
+									$(".con_ul").prepend('<li class="index_fenl fenz" id=' + res.data[a].id + ' style="background: #' + arr[a] + ';">' + res.data[a].group_name + '</li>');
+									//									//接口里有图片地址
+									//									$(".con_ul").append('<li class="index_fenl left clearFix" is_sub='+res.data[a].is_sub+' id='+res.data[a].id+' check_id='+res.data[a].check_id+' group_id='+res.data[a].group_id+' style="background: #'+arr[a]+';"><div class="left txt_neir">'+res.data[a].name+'</div><img src='+res.data[a].img_url+' alt="" class="right txt_tu"/></li>');
+
+								}
+
+							}
+							fun();
+						} else {
+							alert(res.msg);
+						}
+					},
+					error: function(res) {
+						console.log("错误" + res);
+					}
+				});
+
+				function fun() {
+					//					$(".inputSearch1").off("click").click(function() {
+					////						$(this).siblings("img").css("display", "none");
+					//						location.href = "search.html";
+					//					})
+
+					//点击进入分组详情
+					$.each($(".fenz"), function() {
+						$(this).off("click").click(function() {
+							//							console.log($(this).attr("id"));
+							var fenz_id = $(this).attr("id");
+							var fenz_txt = $(this).text();
+							localStorage.setItem("fenz_id", fenz_id);
+							localStorage.setItem("fenz_txt", fenz_txt);
+							location.href = "news_detial.html?userid=" + userid
+
+						})
+					});
+					//点击热门进入热门详情
+					$.each($(".rem"), function() {
+						$(this).off("click").click(function() {
+							var rem_id = $(this).attr("id");
+							localStorage.setItem("rem_id", rem_id);
+							location.href = "rem_detial.html?userid=" + userid
+						})
+					});
+
+				};
+				fun();
+
+				$(".mine").off("click").click(function() {
+					$(this).siblings(".zhuti").children("div").removeClass("act");
+					$(this).siblings(".zhuti").children("img").toggle()
+					location.href = 'mine.html?userid=' + userid
+				})
+			})
+		</script>
+	</body>
+
+</html>

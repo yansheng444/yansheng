@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<configuration scan="true" scanPeriod="60 seconds">  
+  
+  <property name="log.filePath" value="/data/logs/multiDataSource"></property>  
+  
+   <!-- 控制台 appender -->  
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">  
+        <encoder>  
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>  
+        </encoder>  
+    </appender>  
+  
+    <appender name="business" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--日志文件输出的文件名-->
+        <file>${log.filePath}/business.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--归并日志文件输出的文件名-->
+            <fileNamePattern>${log.filePath}/business-%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+         <!-- 以下两个是设置第二天的日志不追加到前一天的日志，有助于日志分析 -->
+         <append>false</append>  
+	    <prudent>true</prudent>  
+        <!--日志文件最大的大小-->
+        <!-- <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy> -->
+    </appender>
+    
+      
+   <logger name="business" additivity="false">
+        <appender-ref ref="business"/>  
+   </logger>   
+   
+    <!--控制台打印资源加载信息-->  
+    <root level="info">  
+        <appender-ref ref="STDOUT"/>  
+    </root>  
+   
+</configuration>  

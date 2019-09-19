@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-2.2.3.min.js"></script>
+</head>
+<body>
+	<div id="code">
+                    </div>
+
+</body>
+
+<script>
+
+		//获取location url的参数kaid
+		function GetQueryString(name) { 
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i"); 
+			var r = window.location.search.substr(1).match(reg); 
+			if (r!=null) return (r[2]); return null; 
+		}
+
+		
+	        $.ajax({
+	    		type:"get",
+	    		url:"http://auth.easypnp.com/dd_auth/scan/auth",
+	    		async:true,
+	    		data : {"code":GetQueryString("code"),"state":GetQueryString("state")},
+	    		dataType : "json",
+	    		success : function(data) {
+	    			if(data.code == 1000){
+	    				if(GetQueryString("state") == "http://passport.yangguangqicai.com/Trains/Index"){
+	    					window.location.href = data.data.url + "?userid="+data.data.userid+"&alias=neigoufuli"+
+	    					"&email="+ data.data.email +"&mobile="+ data.data.mobile +"&name="+ data.data.name;
+	    				}else {
+	    					window.location.href = data.data.url + "?userinfo="+JSON.stringify(data.data);
+	    				}
+	    			}else{
+	    				alert(data.msg);
+	    			}
+	    		},
+	    		error : function(data){
+	    			alert("扫码失败");
+	    		}
+	    		
+	    		
+	    	});		
+	        		
+	        		
+	
+	
+
+</script>
+</html>

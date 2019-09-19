@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>消息订阅</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/lc_switch.min.js"></script>
+		<link rel="stylesheet" href="css/config.css" />
+		<link rel="stylesheet" href="css/mine.css" />
+		<link rel="stylesheet" type="text/css" href="css/lc_switch.css"/>
+		<style>
+			body {
+				background: #fff;
+				color: #333;
+				overflow-x: hidden;
+			}
+			.heade{
+				width: 60%;
+				height: 0.81rem;
+				color: #404245;
+				text-align: center;
+				line-height: 0.81rem;
+				font-size: 0.28rem;
+				font-weight: bold;
+			}
+			.biaot{
+				width: 100%;
+				height: 0.81rem;
+				color: #8c8c8c;
+				text-align: center;
+				line-height: 0.81rem;
+				font-size: 0.28rem;
+				font-weight: bold;
+			}
+			.back{
+				width: 20%;
+				height: 0.81rem;
+				text-align: center;
+			}
+			.back img{
+				width: 10%;
+				margin-top: 0.3rem;
+				margin-left: 0.4rem;
+			}
+			#fir{
+				width: 100%;
+				height: 5.4rem;
+				background: #d1dce8;
+			}
+			.img{
+				margin: 0.51rem auto;
+				width: 1.7rem;
+				height: 1.7rem;
+				border: 2px solid #e0e8f0;
+				border-radius: 1.3rem;
+				box-shadow: -1px 4px 4px 2px #c3cfdb;
+				text-align: center;
+				overflow: hidden;
+			}
+			.img img{
+				width: 80%;
+			}
+			.tet{
+				width: 72%;
+				height: 0.8rem;
+				text-align: center;
+				color: #303234;
+				font-size: 0.24rem;
+				margin: 0 auto;
+				line-height: 0.4rem;
+			}
+			#floa{
+				width: 5.1rem;
+				height: 2.8rem;
+				margin: 0.1rem auto;
+				margin-top: -0.55rem;
+				border-radius:0.2rem;
+				background: #fff;
+				box-shadow: 0px 4px 2px 2px #edf0f4;
+				font-size: 0.24rem;
+				color: #303234;
+				padding: 0.4rem;
+				line-height: 0.4rem;
+			}
+			#shishi{
+				width: 4rem;
+				height: 0.75rem;
+				background: #9bccdf;
+				margin: 0 auto;
+				color: white;
+				border-radius: 0.4rem;
+				margin-top: 1.06rem;
+				font-size: 0.24rem;
+				text-align: center;
+				line-height: 0.75rem;
+			}
+		</style>
+	</head>
+
+	<body id='main' class="clearFix">
+		<div id="fir">
+			<div class="back left clearFix">
+				<img src="img/203.png" alt="" class="left"/>
+			</div>
+			<div class="heade left">订阅消息提醒</div>
+			<div class="biaot"></div>
+			<div class="img">
+				
+			</div>
+			<div class="tet">
+				
+			</div>
+		</div>
+		<div id="floa">
+			
+		</div>
+		<div id="shishi">
+			
+		</div>
+		
+		
+		
+		<div id='footer' style="">
+			<div class="zhuti">
+				<img src="img/zt.png" alt="" class="zhut" style="display: none;"/>
+				<img src="img/zt0.png" alt="" class="zhut"/>
+				<div class="zhut_z">主题</div>
+			</div>
+			<div class="mine">
+				<img src="img/wd.png" class="min" style="display: none;"/>
+				<img src="img/wd0.png" class="min"/>
+				<div class="min_z">我的</div>
+			</div>
+		</div>
+		<!--<div class="add" style="position: absolute;left: 34%;top: 93%;"><div><img src="img/微信图片_20180920170931.png" alt="" /></div></div>-->
+		<script>
+			$(function(){
+				//接口：trigger/dataFront     参数：checkid，userid
+				
+				var userid = localStorage.getItem("user_id");
+				var rem_id = localStorage.getItem("rem_id");
+				
+				
+				//请求详情
+			    $.ajax({
+					type:"post",
+//					url:"http://172.16.2.28/data/group/data?userid="+user_id,
+					url: http+"trigger/infoFront",
+					async:true,
+					dataType:'json',
+					data:{
+						"id":rem_id,
+						"userid":userid
+					},
+					success:function(res){
+						console.log(res);
+						if(res.status == 1000){
+							$(".img").append('<img src='+res.data.img_url+' alt="" />');
+							$(".tet").text(res.data.name);
+							$("#floa").text(res.data.descript);
+							
+							if(res.data.is_sub == 0){
+								$("#shishi").attr("check_id",res.data.check_id);
+								$("#shishi").attr("group_id",res.data.group_id);
+								$("#shishi").attr("id2",res.data.id);
+								$("#shishi").attr("is_sub",res.data.is_sub);
+								$("#shishi").text("订一份试试")
+							}
+							if(res.data.is_sub == 1){
+								$("#shishi").attr("check_id",res.data.check_id);
+								$("#shishi").attr("group_id",res.data.group_id);
+								$("#shishi").attr("id2",res.data.id);
+								$("#shishi").attr("is_sub",res.data.is_sub);
+								$("#shishi").text("申请中")
+							}
+							if(res.data.is_sub == 2){
+								$("#shishi").attr("check_id",res.data.check_id);
+								$("#shishi").attr("group_id",res.data.group_id);
+								$("#shishi").attr("id2",res.data.id);
+								$("#shishi").attr("is_sub",res.data.is_sub);
+								$("#shishi").css("background","#B8C5D5");
+								$("#shishi").text("取消订阅");
+							}
+							
+							
+							func();
+						}else{
+							alert(res.msg);
+						}
+					},
+					error:function(res){
+						console.log("错误"+res);
+					}
+				});
+			    function func(){
+			    	$.each($(".shishi"), function() {
+			    		$(this).off("click").click(function(){
+			    			if($(this).text() == "订一份试试"){
+			    				var a = $(this).attr("id2");
+								var point_name = $(this).siblings("#fir").children(".tet").text();
+			    				$.ajax({
+									type: "post",
+									url: http + "subuser/apply",
+									async: true,
+									data: {
+										"userid": userid,
+										"point_id": a,
+										"point_name": point_name
+									},
+									dataType: 'json',
+									success: function(res) {
+										console.log(res);
+										if(res.status == 1000) {
+											alert(res.msg);
+											location.href="rem_detial.html?userid="+userid
+										} else {
+											alert(res.msg);
+										}
+									},
+									error: function(res) {
+										console.log("错误" + res);
+									}
+								});
+			    			}
+			    			if($(this).text() == "申请中"){
+			    				alert("已经在申请中！");
+			    			}
+			    			if($(this).text() == "取消订阅"){
+			    				var a = $(this).attr("id2");
+								var point_name = $(this).siblings("#fir").children(".tet").text();
+		//						console.log(a,point_name);
+								
+								var msg = "您确定要取消订阅吗？";
+						        if (confirm(msg)==true){
+						        	//你也可以在这里做其他的操作
+									$.ajax({
+										type:"post",
+										url:http+"process/delete",
+										async:true,
+										data:{
+											"userid":userid,
+											"point_id":a,
+											"point_name":point_name
+										},
+										dataType:'json',
+										success:function(res){
+			//								console.log("成功");
+											console.log(res);
+											if(res.status == 1000){
+			//									$(this).toggle();
+												alert(res.msg);
+												location.href="rem_detial.html?userid="+userid
+											}else{
+												alert(res.msg);
+											}
+										},
+										error:function(res){
+											console.log("错误"+res);
+										}
+									});
+						            return true;
+						        }else{
+						            return false;
+						        }
+			    			}
+			    		})
+			    	});
+			    	
+			    	
+			    }
+				
+				
+				//返回主页或者我的页
+			    $(".zhuti").off("click").click(function(){
+			    	$(this).siblings(".mine").children("div").removeClass("act");
+					$(this).siblings(".mine").children("img").toggle();
+			    	location.href = 'index.html?userid='+userid
+			    })
+			    $(".back").off("click").click(function(){
+			    	location.href = 'index.html?userid='+userid
+			    })
+			    $(".mine").off("click").click(function(){
+			    	$(this).siblings(".mine").children("div").removeClass("act");
+					$(this).siblings(".mine").children("img").toggle();
+			    	location.href = 'mine.html?userid='+userid
+			    })
+			})
+		</script>
+	</body>
+
+</html>

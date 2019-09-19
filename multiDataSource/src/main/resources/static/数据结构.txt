@@ -1,0 +1,89 @@
+数据结构：
+
+1. 检查点（check_point）：
+
+cp_id
+cp_name
+cp_schedule（crond形式的排期表）
+cp_collector：数据采集器清单 （ 格式：[ { 'datasource' : $数据源名称, 'request' : $采集请求(SQL/redis命令序列/接口POST参数) }, ... ] ），多个采集器可由Java发起并发执行；
+cp_etl_batch：数据汇总处理脚本（js代码，由Java将各个collector采集的数据转换为Json格式，以参数形式带入js）；
+create_time
+update_time
+is_delete
+
+
+## Redis中检查点的数据结构：
+
+指针k-v对：
+key：chk_point_<cp_id>
+val：chk_point_<cp_id>_<timestamp>        // 每次更新数据后，更新指针
+
+数据k-v对：
+key：chk_point_<cp_id>_<timestamp>
+val：<data in json form>
+
+
+2. 触发器（triger_info）：
+
+tg_id
+cp_id：检查点ID
+grp_id：分组ID
+tg_name
+tg_desc
+tg_schedule
+tg_follow：是否跟随检查点周期执行（True-则tg_schedule无效，检查点执行完成自动启动其下所有follow的triger；False-则按自己的tg_schedule执行）
+tg_script：JS脚本（用于触发条件判断及推送数据生成）
+tg_need_dump：是否需要导出数据文件
+tg_deliv_mode：推送模式（1-立即推送至钉钉，2-暂存推送）
+tg_redeliv_interval：多长时间之内重复触发不推送（s），0表示触发即推送；
+tg_max_redeliv：最大重复推送次数；
+create_time
+update_time
+is_delete
+
+
+3. 订阅关系（subscription）：
+
+sub_id
+tg_id
+user_id（DingTalk用户ID）
+b_uid（业务系统用户ID，具体哪个业务系统由triger决定）   //一个人在一个业务系统中有多个账号的情况用分号隔开；
+                          //一个人在不同业务系统中的账号不同，而一个触发器涉及多个业务系统的数据时如何区分？也用分号隔开然后遍历判断么？
+auth_sequence：审批单号
+auth_status：0-待审，1-审批中，2-通过，3-驳回
+last_deliv_time：上次推送时间（与tg_redeliv_interval字段配合使用）
+redeliv_count：连续推送次数（若有一次未满足触发条件则归零）
+create_time
+update_time
+is_delete
+
+
+4. 消息模板（msg_template）：
+
+tmplt_id
+tmplt_script
+tg_id
+create_time
+update_time
+is_delete
+
+
+5. 分组（group_info）:
+
+grp_id
+grp_name
+create_time
+update_time
+is_delete
+
+
+6. 数据源（data_source）：
+
+ds_id
+ds_name
+ds_type：1-SQLServer，2-MySQL，3-Redis，4-Restful
+ds_conf：Json格式的数据源参数定义
+create_time
+update_time
+is_delete
+仔细看我写的注释，整个业务流程就理出来了，明天我们讨论。

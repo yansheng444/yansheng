@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta http-equiv="Access-Control-Allow-Origin" content="*">-->
+		<title>sec</title>
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<script src="js/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/config.js"></script>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				font-family: "微软雅黑";
+			}
+			
+			body {
+				background: #FAFAFA;
+			}
+			
+			.clearfix:after {
+				content: "";
+				clear: both;
+				display: block;
+			}
+			
+			.left {
+				float: left;
+			}
+			
+			.right {
+				float: right;
+			}
+			
+			.header {
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				background: #006CFF;
+				color: white;
+			}
+			
+			.logo {
+				margin-left: 36px;
+			}
+			
+			#content {
+				width: 1186px;
+				background: #FFFFFF;
+				margin: 0 auto;
+				padding-top: 20px;
+				padding-left: 8px;
+				padding-right: 8px;
+			}
+			
+			.con {
+				width: 1200px;
+				line-height: 44px;
+				margin-bottom: 20px;
+				text-align: center;
+			}
+			
+			.cona {
+				width: 1200px;
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			
+			.conb {
+				line-height: 44px;
+				margin-left: 140px;
+			}
+			
+			.cond {
+				line-height: 44px;
+				margin-left: 160px;
+			}
+			
+			.conc_name,
+			.conc_input,
+			.conc_time_dely,
+			.conc_datasourceId,
+			{
+				/*margin-left: 100px;*/
+				width: 240px;
+				/*border-bottom: 1px solid #aaa;*/
+			}
+			
+			.conbb {
+				text-align: center;
+			}
+			.jcd_xiug{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;position: absolute;left:428px;top:114px;
+			}
+			.jcd_del{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;position: absolute;left:548px;top:114px;
+			}
+			.trigger_add{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;position: absolute;left:160px;top:10px;
+			}
+			.trigger-xg{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;position: absolute;left:280px;top:10px;
+			}
+			.trigger{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;position: absolute;left:400px;top:10px;
+			}
+			.jcd_xiug{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;position: absolute;left:548px;top:114px;
+			}
+			.jcd_del{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;position: absolute;left:668px;top:114px;
+			}
+			.trigger_xiug{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;
+			}
+			.trigger_del{
+				width: 102px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;margin-left: 20px;			}
+			.tit_wid{width: 240px;font-weight: bold;}
+			.trg_img{
+				width: 12%;position: absolute;left: 80%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header clearfix">
+			<div class="head left">
+				<img src="img/neibu225x50.jpg" alt="" class="logo" />
+			</div>
+			<div id="back" class="right" style="margin-right: 200px;font-weight: 400;cursor: pointer;">
+				返回首页
+			</div>
+		</div>
+		<div id="content">
+			<span style="font-size: 18px;">详情：</span>
+			<div id="cont" style="padding: 5px;margin-bottom: 40px;">
+				<!--<div class="con">
+					<span>trigger：</span>
+					<select class="sel">
+						<option value="0">请选择</option>
+						<option value="1">执行SQL</option>
+						<option value="2">查询Redis</option>
+						<option value="3">调用接口</option>
+					</select>
+				</div>
+				<div class="con">
+					<span>datasourceId：</span><span></span>
+				</div>
+				<div class="con">
+					<span>group_id：</span><span></span>
+				</div>
+				<div class="con">
+					<span>id：</span><span></span>
+				</div>
+				<div class="con">
+					<span>input：</span><span></span>
+				</div>
+				<div class="con">
+					<span>is_subscript：</span><span></span>
+				</div>
+				<div class="con">
+					<span>name：</span><span></span>
+				</div>
+				<div class="con">
+					<span>start_time：</span><span></span>
+				</div>
+				<div class="con">
+					<span>time_delay：</span><span></span>
+				</div>
+				<div class="con">
+					<span>type：</span><span></span>
+				</div>
+				<div class="con">
+					<span>url：</span><span></span>
+				</div>-->
+			</div>
+			
+		</div>
+
+		<div style="width: 1200px;margin: 0 auto;">
+			<div style="margin: 20px auto;" class="clearfix">
+			</div>
+		</div>
+		<!--<div style="width: 100%;height: 200px;"></div>-->
+		<script>
+			$(function() {
+				$("#back").off("click").click(function() {
+					location.href = 'index.html'
+				})
+				//检查点的
+				localStorage.removeItem('conc_expire_time');
+				localStorage.removeItem('conc_cp_etl_batch');
+				localStorage.removeItem('conc_cp_collector');
+				localStorage.removeItem('conc_name');
+				localStorage.removeItem('conc_time_delay');
+				//trigger的
+				localStorage.removeItem('triggerid');
+				localStorage.removeItem('triggers-id');
+				localStorage.removeItem('condition_detail');
+				localStorage.removeItem('descript');
+				localStorage.removeItem('tg_max_redeliv');
+				localStorage.removeItem('tname');
+				localStorage.removeItem('js_script');
+				localStorage.removeItem('is_file');
+				localStorage.removeItem('tg_redeliv_interval');
+				localStorage.removeItem('is_right');
+				localStorage.removeItem('tg_follow');
+				localStorage.removeItem('checkid');
+				localStorage.removeItem('group_id');
+				localStorage.removeItem('trg_img');
+				
+				var a = localStorage.getItem("pointid");
+				$.ajax({
+					type: "post",
+					url: http + "checkPoint/info?id=" + a,
+					async: true,
+					dataType: 'json',
+					success: function(res) {
+						console.log(res);
+						if(res.status == 1000) {
+							//							for(var a = 0; a < res.data.length; a++){
+							if(res.data.triggers.length == 0) {
+								$("#cont").append('<div class="conb" style="position: relative;"><span style="font-size:18px;">检查点：</span></div><div class="jcd_xiug">修改检查点</div><div class="jcd_del">删除检查点</div><div class="cond clearfix"><div class="left tit_wid">放入redis数据失效时间（分）：</div><div class="conc_expire_time left">' + res.data.expire_time + '</div></div><div class="cond clearfix"><div class="left tit_wid" >批处理数据处理js代码：</div><div class="conc_cp_etl_batch left">' + res.data.cp_etl_batch + '</div></div><div class="cond clearfix"><div class="left tit_wid">批处理结合：</div><div class="conc_cp_collector left" style="width: 600px;word-break: break-all;word-wrap: break-word;">' + res.data.cp_collector + '</div></div><div class="cond clearfix"><div class="left tit_wid">名称：</div><div class="conc_name left">' + res.data.name + '</div></div><div class="cond clearfix"><div class="left tit_wid">时间表达式：</div><div class="conc_time_delay left">' + res.data.condition + '</div></div><div class="conb" style="position: relative;margin-top: 100px;"><span class="trigg"><span style="font-size:18px">trigger：</span></span><div class="trigger_add">增加trigger</div></div>')
+							} else {
+								$("#cont").append('<div class="conb" style="position: relative;"><span style="font-size:18px;">检查点：</span></div><div class="jcd_xiug">修改检查点</div><div class="jcd_del">删除检查点</div><div class="cond clearfix"><div class="left tit_wid">放入redis数据失效时间（分）：</div><div class="conc_expire_time left">' + res.data.expire_time + '</div></div><div class="cond clearfix"><div class="left tit_wid" >批处理数据处理js代码：</div><div class="conc_cp_etl_batch left">' + res.data.cp_etl_batch + '</div></div><div class="cond clearfix"><div class="left tit_wid">批处理结合：</div><div class="conc_cp_collector left" style="width: 600px;word-break: break-all;word-wrap: break-word;">' + res.data.cp_collector + '</div></div><div class="cond clearfix"><div class="left tit_wid">名称：</div><div class="conc_name left">' + res.data.name + '</div></div><div class="cond clearfix"><div class="left tit_wid">时间表达式：</div><div class="conc_time_delay left">' + res.data.condition + '</div></div><div class="conb" style="position: relative;margin-top: 100px;"><span class="trigg"><span style="font-size:18px">trigger：</span></span><div class="trigger_add">增加trigger</div></div>')
+
+								for(var j = 0; j < res.data.triggers.length; j++) {
+									
+									$(".trigg").append('<img src='+res.data.triggers[j].img_url+' alt="" class="trg_img" /><div class="clearfix trigg_chi" j =' + res.data.group_id + ' i='+res.data.triggers[j].check_id+' id='+res.data.triggers[j].id+' style="margin-left: 30px;margin-top: 20px;"><div class="clearfix"><div class="trigger_xiug left" id='+j+'>修改该trigger</div><div class="trigger_del left">删除该trigger</div></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">检查点id:</div><span class="id" style="margin-left: 10px;">' + res.data.triggers[j].id + '</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">时间表达式详情:</div><span class="condition_detail" style="margin-left: 10px;">' + res.data.triggers[j].condition_detail + '</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">描述:</div><span class="descript" style="margin-left: 10px;">' + res.data.triggers[j].descript + '</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">名称:</div><span class="tname" style="margin-left: 10px;">' + res.data.triggers[j].name + '</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">最大重复发送次数:</div><span class="tg_max_redeliv" style="margin-left: 10px;">' + res.data.triggers[j].tg_max_redeliv + '</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">重复发送时间间隔(分):</div><span class="tg_redeliv_interval" style="margin-left: 10px;">' + res.data.triggers[j].tg_redeliv_interval + '</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">js脚本:</div><span class="js_script" style="margin-left: 10px;">' + res.data.triggers[j].js_script + '</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否文件发送(0否1是):</div><span class="is_file" id='+res.data.triggers[j].is_file+' style="margin-left: 10px;">'+res.data.triggers[j].is_file+'</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否立即发送(0否1是):</div><span class="is_right" id='+res.data.triggers[j].is_right+' style="margin-left: 10px;">'+res.data.triggers[j].is_right+'</span></div><div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否跟随检查点执行(0否1是):</div><span class="tg_follow" id='+res.data.triggers[j].tg_follow+' style="margin-left: 10px;">'+res.data.triggers[j].tg_follow+'</span></div>');
+								
+//									if(res.data.triggers[j].is_file == 0){
+//										$(".trigg_chi").append('<div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否文件发送:</div><span class="is_file" id='+res.data.triggers[j].is_file+' style="margin-left: 10px;">否</span></div>');
+//									}
+//									if(res.data.triggers[j].is_file == 1){
+//										$(".trigg_chi").append('<div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否文件发送:</div><span class="is_file" id='+res.data.triggers[j].is_file+' style="margin-left: 10px;">是</span></div>');
+//									}
+//									if(res.data.triggers[j].is_right == 0){
+//										$(".trigg_chi").append('<div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否立即发送:</div><span class="is_right" id='+res.data.triggers[j].is_right+' style="margin-left: 10px;">否</span></div>');
+//									}
+//									if(res.data.triggers[j].is_right == 1){
+//										$(".trigg_chi").append('<div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否立即发送:</div><span class="is_file" id='+res.data.triggers[j].is_right+' style="margin-left: 10px;">是</span></div>');
+//									}
+//									if(res.data.triggers[j].tg_follow == 0){
+//										$(".trigg_chi").append('<div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否跟随检查点执行:</div><span class="tg_follow" id='+res.data.triggers[j].tg_follow+' style="margin-left: 10px;">否</span></div>');
+//									}
+//									if(res.data.triggers[j].tg_follow == 1){
+//										$(".trigg_chi").append('<div class="clearfix" style="margin-left: 30px;"><div class="left tit_wid">是否跟随检查点执行:</div><span class="is_file" id='+res.data.triggers[j].tg_follow+' style="margin-left: 10px;">是</span></div>');
+//									}
+								
+								
+								}
+
+							}
+							fun();
+//							}
+						} else {
+							alert(res.msg);
+						}
+					},
+					error: function(res) {
+						console.log("错误" + res);
+					}
+				});
+				function fun() {
+					$(".jcd_xiug").off("click").click(function() {
+						localStorage.setItem('conc_expire_time', $(".conc_expire_time").text());
+						localStorage.setItem('conc_cp_etl_batch', $(".conc_cp_etl_batch").text());
+						localStorage.setItem('conc_cp_collector', $(".conc_cp_collector").text());
+						localStorage.setItem('conc_name', $(".conc_name").text());
+						localStorage.setItem('conc_time_delay', $(".conc_time_delay").text());
+						location.href = 'jcd_xiug.html';
+					});
+					
+					$(".jcd_del").off("click").click(function() {
+						
+						var a = localStorage.getItem("pointid");
+						var msg = "您确定要删除吗？";
+				        if (confirm(msg)==true){
+				        	//你也可以在这里做其他的操作
+							$.ajax({
+								headers: {
+									Accept: "application/json; charset=utf-8"
+								},
+								type: "post",
+								url: http + "/checkPoint/delete?id="+a,
+								async: true,
+	//							data: data,
+								dataType: 'json',
+								success: function(res) {
+									console.log(res);
+									if(res.status == 1000) {
+										alert("删除成功！");
+										location.href = 'sec.html';
+									} else {
+										alert(res.msg);
+									}
+	
+								},
+								error: function(res) {
+									console.log("错误" + res);
+								}
+							});
+				            return true;
+				        }else{
+				            return false;
+				        }
+						
+					});
+					
+					
+//					$(".trigger_add").off("click").click(function() {
+//						var i = $(this).siblings().children('div').attr("i");
+//						console.log(i);
+//						localStorage.setItem('checkid', i);
+//						location.href = 'trigger_add.html'
+//					});
+					
+					$.each($(".trigger_add"), function() {
+						$(this).off("click").click(function() {
+							var i = $(this).siblings('span').children('div').attr("i");
+							var j = $(this).siblings('span').children('div').attr("j");
+							localStorage.setItem('checkid', i);
+							localStorage.setItem('group_id', j);
+							location.href = 'trigger_add.html'
+						});
+					});
+					
+					
+					$.each($(".trigger_xiug"), function() {
+						$(this).off("click").click(function() {
+							var i = $(this).attr("id");
+							console.log(i);
+							localStorage.setItem('triggerid', $(".trigg_chi").eq(i).attr('id'));
+							localStorage.setItem('triggers-id', $(".id").eq(i).text());
+							localStorage.setItem('condition_detail', $(".condition_detail").eq(i).text());
+							localStorage.setItem('descript', $(".descript").eq(i).text());
+							localStorage.setItem('tg_max_redeliv', $(".tg_max_redeliv").eq(i).text());
+							localStorage.setItem('tname', $(".tname").eq(i).text());
+							localStorage.setItem('js_script', $(".js_script").eq(i).text());
+							localStorage.setItem('is_file', $(".is_file").eq(i).attr("id"));
+							localStorage.setItem('tg_redeliv_interval', $(".tg_redeliv_interval").eq(i).text());
+							localStorage.setItem('is_right', $(".is_right").eq(i).attr("id"));
+							localStorage.setItem('tg_follow', $(".tg_follow").eq(i).attr("id"));
+							localStorage.setItem('trg_img', $(".trg_img").eq(i).attr("src"));
+							location.href = 'trigger-xg.html';
+						});
+					});
+					
+					
+					
+					$.each($(".trigger_del"), function() {
+						$(this).off("click").click(function(){
+							var triid = $(this).parent().parent().attr('id');
+							var msg = "您确定要删除吗？";
+					        if (confirm(msg)==true){
+					        	//你也可以在这里做其他的操作
+								$.ajax({
+									headers: {
+										Accept: "application/json; charset=utf-8"
+									},
+									type: "post",
+									url: http + "/trigger/delete?id="+triid,
+									async: true,
+	//								data: data,
+									dataType: 'json',
+									success: function(res) {
+										console.log(res);
+										if(res.status == 1000) {
+											alert("删除成功！");
+											location.href = 'sec.html';
+											
+										} else {
+											alert(res.msg);
+										}
+		
+									},
+									error: function(res) {
+										console.log("错误" + res);
+									}
+								});
+					            return true;
+					        }else{
+					            return false;
+					        }
+						})
+					});
+					
+				};
+				fun()
+
+			})
+		</script>
+	</body>
+
+</html>

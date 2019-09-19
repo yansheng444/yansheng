@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta http-equiv="Access-Control-Allow-Origin" content="*">-->
+		<title>add</title>
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<script src="js/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/config.js"></script>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				font-family: "微软雅黑";
+			}
+			body{
+				background: #fafafa;
+			}
+			.clearfix:after {
+				content: "";
+				clear: both;
+				display: block;
+			}
+			
+			.left {
+				float: left;
+			}
+			
+			.right {
+				float: right;
+			}
+			
+			.header {
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				background: #006CFF;
+				color: white;
+			}
+			
+			.logo {
+				margin-left: 36px;
+			}
+			
+			#content {
+				width: 1160px;
+				margin: 0px auto;
+				padding: 20px 20px;
+				background: #ffffff;
+			}
+			
+			.con {
+				/*height: 44px;*/
+				/*line-height: 44px;*/
+				margin-bottom: 20px;
+				/*text-align: center;*/
+			}
+			
+			.cona {
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			
+			.conb {
+				line-height: 44px;
+			}
+			.cnb{    
+				/*line-height: 44px;*/
+    margin-bottom: 20px;
+    margin-left: 140px;}
+			.conbb {
+				/*text-align: center;*/
+			}
+			.cnb .tit{width: 240px;}
+			.cnb div input{
+				width: 500px;
+			}
+			.cnb div textarea{
+				width: 500px;
+				height: 140px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header clearfix">
+			<div class="head left">
+				<img src="img/neibu225x50.jpg" alt="" class="logo" />
+			</div>
+			<div id="back" class="right" style="margin-right: 200px;font-weight: 400;cursor: pointer;">
+				返回首页
+			</div>
+			<div id="back1" class="right" style="margin-right: 20px;font-weight: 400;cursor: pointer;">
+				返回上一页
+			</div>
+		</div>
+		<div id="content">
+			<span style="font-size: 20px;">检查点：</span>
+			<div id="" style="padding: 5px;margin-bottom: 40px;">
+				
+				<!--<div class="con">
+					<div class="trigger" style="width: 102px;height: 42px;background: #26b8fb;color: white;text-align: center;line-height: 42px;border-radius: 7px;cursor: pointer;margin: 0 auto;">增加trigger</div>
+				</div>-->
+				<div class="con clearfix cnb">
+					<div class="left tit">放入redis数据失效时间（分）：</div>
+					<div class="left">
+						<input class="conc_expire_time" type="number" placeholder="请输入" />
+					</div>
+				</div>
+				<div class="con clearfix cnb">
+					<div class="left tit">批处理数据处理js代码：</div>
+					<div class="left">
+						<!--<input class="conc_cp_etl_batch" type="text" placeholder="请输入" />-->
+						<textarea class="conc_cp_etl_batch"></textarea>
+					</div>
+				</div>
+				<div class="con clearfix cnb">
+					<div class="left tit">批处理结合：</div>
+					<div class="left">
+						<!--<input class="conc_cp_collector" type="text" placeholder="请输入" />-->
+						<textarea class="conc_cp_collector"></textarea>
+					</div>
+				</div>
+				<div class="con clearfix cnb">
+					<div class="left tit">名称：</div>
+					<div class="left">
+						<input class="conc_name" type="text" placeholder="请输入" />
+					</div>
+				</div>
+				<div class="con clearfix cnb">
+					<div class="left tit">时间表达式：</div>
+					<div class="left">
+						<input class="conc_time_delay" type="text" placeholder="请输入" />
+					</div>
+				</div>
+				<!--<div class="con">
+					<div class="trigger" style="width: 102px;height: 42px;background: #26b8fb;color: white;text-align: center;line-height: 42px;border-radius: 7px;cursor: pointer;margin: 0 auto;">增加trigger</div>
+				</div>-->
+				<div class="con">
+					<div class="baoc" style="width: 102px;height: 42px;background: #26b8fb;color: white;text-align: center;line-height: 42px;border-radius: 7px;cursor: pointer;margin: 0 auto;">保存</div>
+				</div>
+	
+			</div>
+
+		<script>
+			$(function() {
+				$("#back").off("click").click(function(){
+					location.href = 'index.html'
+				})
+				$("#back1").off("click").click(function(){
+					window.history.go(-1);
+				})
+
+				
+				$(".baoc").off("click").click(function() {
+					var group_id = localStorage.getItem("groupid");
+					var group_name = localStorage.getItem("groupname");
+					var data = {
+						"name":$(".conc_name").val(),
+						"condition":$(".conc_time_delay").val(),
+						"cp_etl_batch":$(".conc_cp_etl_batch").val(),
+						"cp_collector":$(".conc_cp_collector").val(),
+						"expire_time":$(".conc_expire_time").val(),
+						"group_name":group_name,
+						"group_id":group_id
+					};
+					console.log(data);
+					$.ajax({
+						headers: {
+					        Accept: "application/json; charset=utf-8"
+					    },
+						type: "post",
+						url:http+"checkPoint/create",
+						async: true,
+						data: data,
+						dataType: 'json',
+						success: function(res) {
+							console.log(res);
+							if(res.status == 1000){
+								alert("增加成功！");
+								window.history.go(-1);
+							}else{
+								alert(res.msg);
+							}
+						},
+						error: function(res) {
+							console.log("错误" + res);
+						}
+					});
+				})
+
+			})
+		</script>
+	</body>
+
+</html>

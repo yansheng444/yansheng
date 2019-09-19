@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>消息订阅</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/lc_switch.min.js"></script>
+		<script src="js/popups.js"></script>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/config.css" />
+		<link rel="stylesheet" href="css/mine.css" />
+		<link rel="stylesheet" type="text/css" href="css/lc_switch.css"/>
+		<style>
+			body {
+				background: #fff;
+				color: #333;
+				overflow-x: hidden;
+			}
+			#headd{
+				width: 100%;
+				height: 1rem;
+				background: #f6f6f6;
+			}
+			.biaot{
+				width: 60%;
+				height: 1rem;
+				color: #8c8c8c;
+				text-align: center;
+				line-height: 1rem;
+				font-size: 0.28rem;
+				font-weight: bold;
+			}
+			.back{
+				width: 20%;
+				height: 1rem;
+				text-align: center;
+			}
+			.back img{
+				
+				width: 22%;
+				margin-top: 0.4rem;
+				margin-left: 0.4rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="clearFix" id="headd">
+			<div class="back left clearFix">
+				<img src="img/u=2608441410,1471220549&fm=27&gp=0.jpg" alt="" class="left"/>
+			</div>
+			<div class="biaot left"></div>
+		</div>
+		
+		
+		<div id="content">
+			<ul>
+				<!--<li class="clearFix">
+					<img src="img/u=344180002,2432564216&fm=27&gp=0.jpg" alt="" class="left toux"/>
+					<div class="txt left clearFix">
+						<div class="txt_zi left">
+							<p class="txt_shuom">应付款周报</p>
+							<p class="txt_zhuangt">审批完成已订阅</p>
+						</div>
+						<input type="checkbox" name="check-3" value="6" class="lcs_check lcs_tt1 left" checked="checked" autocomplete="off" />
+					</div>
+				</li>-->
+			</ul>
+		</div>
+		
+		<div id='footer' style="">
+			<div class="zhuti">
+				<img src="img/zt.png" alt="" class="zhut" style="display: none;"/>
+				<img src="img/zt0.png" alt="" class="zhut"/>
+				<div class="zhut_z">主题</div>
+			</div>
+			<div class="mine">
+				<img src="img/wd.png" class="min" style="display: none;"/>
+				<img src="img/wd0.png" class="min"/>
+				<div class="min_z">我的</div>
+			</div>
+		</div>
+		<!--<div class="add" style="position: absolute;left: 34%;top: 93%;"><div><img src="img/微信图片_20180920170931.png" alt="" /></div></div>-->
+		<script>
+			$(function(){
+				var userid = localStorage.getItem("user_id");
+				var inputS = localStorage.getItem("inputS");
+				$(".biaot").text(inputS);
+				
+				//请求列表
+				
+			    $.ajax({
+					type:"post",
+//					url:"http://172.16.2.28/data/group/data?userid="+user_id,
+					url: http+"trigger/dataFront",
+					async:true,
+					dataType:'json',
+					data:{
+						"search":inputS,
+						"userid":userid
+					},
+					success:function(res){
+						console.log(res);
+						if(res.status == 1000){
+							
+							for(var i = 0; i < res.data.length; i++){
+								if(res.data.length == 0){
+									$("#content ul").append('<li class="" style="font-size: 0.26rem;">搜索数据暂无！</li>');
+								}else{
+									
+									if(res.data[i].is_sub == 0){
+										$("#content ul").append('<li class="clearFix"><img src="img/u=344180002,2432564216&fm=27&gp=0.jpg" alt="" class="left toux"/><div class="txt left clearFix"><div class="txt_zi left rem" id='+res.data[i].id+'><p class="txt_shuom" is_sub='+res.data[i].is_sub+' id='+res.data[i].id+' check_id='+res.data[i].check_id+' group_id='+res.data[i].group_id+'>'+res.data[i].name+'</p><p class="txt_zhuangt">未订阅</p></div><input type="checkbox" name="check-3" value='+i+' class="lcs_check lcs_tt1 left" checked="checked" autocomplete="off" /></div></li>')
+									}
+									if(res.data[i].is_sub == 1){
+										$("#content ul").append('<li class="clearFix"><img src="img/u=344180002,2432564216&fm=27&gp=0.jpg" alt="" class="left toux"/><div class="txt left clearFix"><div class="txt_zi left rem" id='+res.data[i].id+'><p class="txt_shuom" is_sub='+res.data[i].is_sub+' id='+res.data[i].id+' check_id='+res.data[i].check_id+' group_id='+res.data[i].group_id+'>'+res.data[i].name+'</p><p class="txt_zhuangt">审批中</p></div><input type="checkbox" name="check-3" value='+i+' class="lcs_check left" disabled="disabled" autocomplete="off" /></div></li>')
+									}
+									if(res.data[i].is_sub == 2){
+										$("#content ul").append('<li class="clearFix"><img src="img/u=344180002,2432564216&fm=27&gp=0.jpg" alt="" class="left toux"/><div class="txt left clearFix"><div class="txt_zi left rem" id='+res.data[i].id+'><p class="txt_shuom" is_sub='+res.data[i].is_sub+' id='+res.data[i].id+' check_id='+res.data[i].check_id+' group_id='+res.data[i].group_id+'>'+res.data[i].name+'</p><p class="txt_zhuangt">订阅成功</p></div><input type="checkbox" name="check-3" value='+i+' class="lcs_check left" autocomplete="off" /></div></li>')
+									}
+								
+								}
+							}
+							func();
+						}else{
+							$("#content ul").append('<li class="" style="font-size: 0.26rem;">'+res.msg+'</li>');
+						}
+					},
+					error:function(res){
+						console.log("错误"+res);
+					}
+				});
+			    function func(){
+			   
+				//on、off按钮
+				$(document).ready(function(e) {
+					event.stopPropagation();
+					$('input').lc_switch();
+					// triggered each time a field changes status
+					$('body').delegate('.lcs_check', 'lcs-statuschange', function() {
+						var status = ($(this).is(':checked')) ? 'checked' : 'unchecked';
+						console.log('field changed status: '+ status );
+					});
+					
+					// triggered each time a field is checked
+					$('body').delegate('.lcs_check', 'lcs-on', function() {
+						event.stopPropagation();
+						console.log('field is checked');
+						
+						var a = $(this).parent(".lcs_wrap").siblings("div").children(".txt_shuom").attr("id");
+						var point_name = $(this).parent(".lcs_wrap").siblings("div").children(".txt_shuom").text();
+//						console.log(a,point_name);
+						
+						var msg = "您确定要取消订阅吗？";
+				        if (confirm(msg)==true){
+				        	$(this).parent(".lcs_wrap").siblings("div").children(".txt_zhuangt").text("申请订阅");
+				        	//你也可以在这里做其他的操作
+							$.ajax({
+								type:"post",
+								url:http+"process/delete",
+								async:true,
+								data:{
+									"userid":userid,
+									"point_id":a,
+									"point_name":point_name
+								},
+								dataType:'json',
+								success:function(res){
+	//								console.log("成功");
+									console.log(res);
+									if(res.status == 1000){
+	//									$(this).toggle();
+										jqtoast(res.msg);
+										setTimeout(function(){
+											location.href = "search_result.html?userid="+userid
+										},2000);
+									}else{
+										jqtoast(res.msg);
+									}
+								},
+								error:function(res){
+									console.log("错误"+res);
+								}
+							});
+				            return true;
+				        }else{
+//				            return false;
+				            location.href="search_result.html?userid="+userid
+				        }
+						
+						
+						
+						
+						
+						
+						
+					});
+					//点击热门进入热门详情
+					$.each($(".rem"), function() {
+						$(this).off("click").click(function() {
+							var rem_id = $(this).attr("id");
+							localStorage.setItem("rem_id", rem_id);
+							location.href = "rem_detial.html?userid=" + userid
+						})
+					});
+					
+					// triggered each time a is unchecked
+					$('body').delegate('.lcs_check', 'lcs-off', function() {
+						event.stopPropagation();
+						console.log('field is unchecked');
+						var a = $(this).parent(".lcs_wrap").siblings("div").children(".txt_shuom").attr("id");
+						var point_name = $(this).parent(".lcs_wrap").siblings("div").children(".txt_shuom").text();
+						$(this).parent(".lcs_wrap").siblings("div").children(".txt_zhuangt").text("审批中");
+						$(this).attr("disabled","disabled");
+						
+						$.ajax({
+								type: "post",
+								url: http + "subuser/apply",
+								async: true,
+								data: {
+									"userid": userid,
+									"point_id": a,
+									"point_name": point_name
+								},
+								dataType: 'json',
+								success: function(res) {
+									console.log(res);
+									if(res.status == 1000) {
+										jqtoast(res.msg);
+										setTimeout(function(){
+											location.href = "search_result.html?userid="+userid
+										},2000);
+									} else {
+										jqtoast(res.msg);
+									}
+								},
+								error: function(res) {
+									console.log("错误" + res);
+								}
+							});
+						
+						
+					});
+				});
+				}
+				
+				
+				//返回主页或者我的页
+			    $(".zhuti").off("click").click(function(){
+			    	$(this).siblings(".mine").children("div").removeClass("act");
+					$(this).siblings(".mine").children("img").toggle();
+			    	location.href = 'index.html?userid='+userid
+			    })
+			    $(".back").off("click").click(function(){
+			    	location.href = 'index.html?userid='+userid
+			    })
+			    $(".mine").off("click").click(function(){
+			    	$(this).siblings(".mine").children("div").removeClass("act");
+					$(this).siblings(".mine").children("img").toggle();
+			    	location.href = 'mine.html?userid='+userid
+			    })
+			})
+		</script>
+	</body>
+
+</html>

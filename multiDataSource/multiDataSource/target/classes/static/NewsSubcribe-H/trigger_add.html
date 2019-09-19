@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta http-equiv="Access-Control-Allow-Origin" content="*">-->
+		<title>trigger</title>
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<script src="js/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/config.js"></script>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				font-family: "微软雅黑";
+			}
+			body{
+				background: #FAFAFA;
+			}
+			.clearfix:after {
+				content: "";
+				clear: both;
+				display: block;
+			}
+			
+			.left {
+				float: left;
+			}
+			
+			.right {
+				float: right;
+			}
+			
+			.header {
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				background: #006CFF;
+				color: white;
+			}
+			
+			.logo {
+				margin-left: 36px;
+			}
+			
+			#content {
+				width: 1160px;
+				margin: 0px auto;
+				padding: 20px 20px;
+				background: #fff;
+			}
+			
+			.con {
+				height: 44px;
+				line-height: 44px;
+				margin-bottom: 20px;
+				text-align: center;
+			}
+			
+			.cona {
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			
+			.conb {
+				line-height: 44px;
+			}
+			
+			.conbb {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header clearfix">
+			<div class="head left">
+				<img src="img/neibu225x50.jpg" alt="" class="logo" />
+			</div>
+			<div id="back" class="right" style="margin-right: 200px;font-weight: 400;cursor: pointer;">
+				返回首页
+			</div>
+			<div id="back1" class="right" style="margin-right: 20px;font-weight: 400;cursor: pointer;">
+				返回上一页
+			</div>
+		</div>
+		<div id="content">
+			
+			<div class="clearfix">
+				<span class="left" style="font-size: 20px;">触发器：</span>
+				<button class="button right" style="width: 42px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;border: 0px;">添加</button>
+			</div>
+
+			<div id="" class="neir" style="border: 1px solid #aaa;padding: 5px;">
+				<div class="conb">
+					<span id="">
+						cron：
+					</span>
+					<span class="conbb">
+						<input class="c_jg" type="text" min="0" placeholder="请输入cron" style="margin-right: 20px;"/>
+					</span>
+				</div>
+				<div class="conb">
+					<span>name：</span><input class="c_nam" type="text" placeholder="请输入" />
+				</div>
+				<div class="conb">
+					<span>script：</span><input class="script" type="text" placeholder="请输入" />
+				</div>
+				<div class="conb">
+					<span>tamplate：</span><textarea name="" rows="" cols="" class="template"></textarea>
+				</div>
+				<div class="conb">
+					<span>是否立即发送：</span>是<input type="radio" class="rad" name="sex" checked="checked" value="0"/>否<input type="radio" class="rad" name="sex"  value="1"/>
+				</div>
+			</div>
+
+		</div>
+
+		<div style="width: 1200px;margin: 0 auto;">
+			<div style="margin: 20px auto;" class="clearfix">
+				<!--position: absolute;right: 698px;bottom: -40px;-->
+				<!--<div class="right" style="width: 62px;height: 42px;background: #7d7f7f;color: white;text-align: center;line-height: 42px;border-radius: 7px;margin-right: 20px;cursor: pointer;">保存</div>-->
+				<div class="right ches" style="width: 62px;height: 42px;background: #26b8fb;color: white;text-align: center;line-height: 42px;border-radius: 7px;margin-right: 20px;cursor: pointer;">保存</div>
+			</div>
+		</div>
+		<script>
+			$(function() {
+				$("#back").off("click").click(function(){
+					location.href = 'index.html'
+				})
+				$("#back1").off("click").click(function(){
+					window.history.go(-1);
+				})
+				//点击添加触发器
+				var a = 0;
+				$(".button").off("click").click(function() {
+					a++;
+					$("#content").append('<div id="" class="neir" style="border: 1px solid #aaa;padding: 5px;margin-top: 20px;"><div class="conb"><span id="">cron：</span><span class="conbb"><input class="c_jg" type="text" placeholder="请输入cron" style="margin-right: 20px;"/></span></div><div class="conb"><span>name：</span><input class="c_nam" type="text" placeholder="请输入" /></div><div class="conb"><span>script：</span><input class="script" type="text" placeholder="请输入" /></div><div class="conb"><span>tamplate：</span><textarea name="" rows="" cols="" class="template"></textarea></div><div class="conb"><span>是否立即发送：</span>是<input type="radio" name='+a+' checked="checked"  value="0"/>否<input type="radio" name='+a+'  value="1"/></div></div>')
+				});
+				
+				$(".ches").off("click").click(function() {
+				
+				for(var j = 0; j < $(".neir").length; j++){
+//					console.log(j);
+					console.log($(".c_jg").eq(j).val(),$(".c_nam").eq(j).val(),$(".script").eq(j).val(),$(".template").eq(j).val(),$('input[type="radio"]:checked').eq(j).val())
+					var checkid = localStorage.getItem("checkid");
+					var data = {
+						"check_id":checkid,
+						"condition":$(".c_jg").eq(j).val(),
+						"lua_script":$(".script").eq(j).val(),
+						"is_right":$('input[type="radio"]:checked').eq(j).val(),
+						"name":$(".c_nam").eq(j).val(),
+						"template":$(".template").eq(j).val()
+					}
+					console.log(JSON.stringify(data));
+					$.ajax({
+						type: "post",
+						url: http+"trigger/create",
+						async: true,
+						data:data,
+						dataType: 'json',
+						success: function(res) {
+							console.log(res);
+							if(res.status == 1000){
+								alert("增加成功！");
+								window.history.go(-1);
+							}else{
+								alert(res.msg);
+							}
+						},
+						error: function(res) {
+							console.log("错误" + res);
+						}
+					});
+				}
+				})
+
+			})
+		</script>
+	</body>
+
+</html>

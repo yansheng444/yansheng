@@ -1,0 +1,104 @@
+
+#footer {
+	width: 100%;
+	height: 0.82rem;
+	/*background: #27B8FB;*/
+	text-align: center;
+	/*line-height: 0.82rem;*/
+	color: #808080;
+	font-size: 0.18rem;
+	position: fixed;
+	bottom: 0;
+	border-top: 1px solid #f1f0f0;
+	display: flex;
+}
+
+.zhuti,
+.mine {
+	position: relative;
+}
+
+.zhut {
+	width: 0.34rem;
+	height: 0.34rem;
+	position: absolute;
+	left: 50%;
+	top: 0.1rem;
+}
+
+.min {
+	width: 0.34rem;
+	height: 0.34rem;
+	position: absolute;
+	left: 50%;
+	top: 0.1rem;
+}
+
+.min_z {
+	position: absolute;
+	left: 49%;
+	top: 0.48rem;
+}
+
+.zhut_z {
+	position: absolute;
+	left: 49%;
+	top: 0.48rem;
+}
+
+#footer>div {
+	width: 50%;
+	height: 100%;
+}
+
+
+.act {
+	/*background: #1590CB;*/
+	color: #26b8fb;
+	display: block;
+}
+
+.header{
+	width: 100%;
+	height: 1rem;
+	text-align: center;
+	line-height: 1rem;
+	font-weight: bold;
+	font-size: 0.28rem;
+}
+#content ul li{
+	width: 92%;
+	height: 1.2rem;
+	padding: 4%;
+}
+.txt{
+	width: 80%;
+	height: 92%;
+	border-bottom: 1px solid #E5E5E5;
+}
+.toux{
+	width: 20%;
+	height: 92%;
+}
+.txt_zi{
+	margin-left: 5%;
+	height: 100%;
+	width: 59%;
+}
+.txt_shuom{
+	font-size: 0.22rem;
+	font-weight: bold;
+	line-height: 0.5rem;
+}
+
+.txt_zhuangt{
+	font-size: 0.22rem;
+	color: #aaa;
+	line-height: 0.5rem;
+}
+.txt_ann{
+	width: 25%;
+	margin-left: 20%;
+	vertical-align: middle;
+	margin-top: 6%;
+}

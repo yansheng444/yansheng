@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta http-equiv="Access-Control-Allow-Origin" content="*">-->
+		<title>index</title>
+		<script src="js/config.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				font-family: "微软雅黑";
+			}
+			
+			body {
+				background: #fafafa;
+			}
+			
+			.clearfix:after {
+				content: "";
+				clear: both;
+				display: block;
+			}
+			
+			.left {
+				float: left;
+			}
+			
+			.right {
+				float: right;
+			}
+			
+			.header {
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				background: #006CFF;
+				color: #fff;
+			}
+			
+			.logo {
+				margin-left: 36px;
+			}
+			
+			#content {
+				width: 1100px;
+				padding-top: 20px;
+				margin: 0px auto;
+			}
+			
+			.data_li {
+				width: 1000px;
+				line-height: 44px;
+				margin-bottom: 20px;
+				cursor: pointer;
+				background: #ffffff;
+				box-shadow: 0px 0px 14px 2px #dedede;
+				padding: 10px 50px;
+			}
+			
+			.dat-li {
+				width: 100%;
+				line-height: 44px;
+				border-bottom: 1px dotted #c5c5c5;
+				margin-bottom: 20px;
+				cursor: pointer;
+			}
+			
+			.anniu {
+				font-size: 12px;
+				margin-right: 10px;
+				padding: 5px;
+				background: #26b8fb;
+				color: white;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="head">
+				<img src="img/neibu225x50.jpg" alt="" class="logo" />
+			</div>
+		</div>
+		<!--<div id="menuTree" class="menuTree"></div>-->
+
+		<div id="content">
+			<ul class="data_ul">
+
+				<!--<li class="data_li">
+					<div class="clearfix dian">
+						<div class="left" style="margin-left: 12px;">分组1</div>
+						<div class="right" style="margin-right: 12px;"><img src="img/下.png" alt="" class="lf" style="display: none;"/><img src="img/右.png" class="rig"/></div>
+					</div>
+					<ul class="dat-ul" style="width:800px;margin: 0 auto;display: none;"><li class="dat-li clearfix"><div class="left">暂无检查点</div><div class="right"><span class="jcd_add anniu">增加检查点</span></div></li></ul>
+					
+				</li>
+				<li class="data_li">
+					<div class="clearfix dian">
+						<div class="left" style="margin-left: 12px;">分组1</div>
+						<div class="right" style="margin-right: 12px;"><img src="img/下.png" alt="" class="lf" style="display: none;"/><img src="img/右.png" class="rig"/></div>
+					</div>
+					<ul class="dat-ul" style="width: 800px;margin: 0 auto;display: none;">
+						<li class="dat-li clearfix">
+							<div class="left">数据1</div>
+							<div class="right"><span style="font-size: 12px;margin-right: 10px;" class="detial cnfg">详情</span><span style="font-size: 12px;margin-right: 10px;" class="del">删除</span></div>
+						</li>
+					</ul>
+				</li>-->
+			</ul>
+			<!--<div class="jcd_add" style="width: 102px;height: 48px;background: #26b8fb;color: white;text-align: center;line-height: 48px;border-radius: 7px;cursor: pointer;margin: 0 auto;">增加检查点</div>-->
+		</div>
+
+		<script src="js/jquery-2.2.3.min.js"></script>
+
+		<script>
+			$(function() {
+
+				//检查点的
+				localStorage.removeItem('conc_expire_time');
+				localStorage.removeItem('conc_cp_etl_batch');
+				localStorage.removeItem('conc_cp_collector');
+				localStorage.removeItem('conc_name');
+				localStorage.removeItem('conc_time_delay');
+				//trigger的
+				localStorage.removeItem('triggerid');
+				localStorage.removeItem('triggers-id');
+				localStorage.removeItem('condition_detail');
+				localStorage.removeItem('descript');
+				localStorage.removeItem('tg_max_redeliv');
+				localStorage.removeItem('tname');
+				localStorage.removeItem('js_script');
+				localStorage.removeItem('is_file');
+				localStorage.removeItem('tg_redeliv_interval');
+				localStorage.removeItem('is_right');
+				localStorage.removeItem('tg_follow');
+				localStorage.removeItem('trg_img');
+
+				$.ajax({
+					type: "post",
+					url: http + 'checkPoint/listAfter',
+					async: true,
+					headers: {
+						Accept: "application/json; charset=utf-8"
+					},
+					dataType: 'json',
+					success: function(res) {
+						console.log(res);
+						if(res.status == 1000) {
+							for(var i = 0; i < res.data.length; i++) {
+//								console.log(i);
+								$(".data_ul").append('<li class="data_li" id=' + res.data[i].group_id + '><div class="clearfix dian"><div class="left" style="margin-left: 12px;">' + res.data[i].group_name + '</div><div class="right" style="margin-right: 12px;"><img src="img/下.png" alt="" class="lf" style="display: none;"/><img src="img/右.png" class="rig"/></div></div></li>');
+
+								if(res.data[i].checkPointList.length == 0) {
+									$(".data_li").eq(i).append('<ul class="dat-ul" style="width:800px;margin: 0 auto;display: none;"><li class="dat-li clearfix"><div class="" style="text-align: center;">暂无检查点</div></li></ul>');
+									$(".data_li").eq(i).append('<ul class="dat-ul" style="width:800px;margin: 0 auto;display: none;"><li class="dat-lia clearfix" style="text-align: center;"><div class=""><span class="jcd_add anniu">增加检查点</span></div></li></ul>');
+								}else{
+									for(var j = 0; j < res.data[i].checkPointList.length; j++) {
+										$(".data_li").eq(i).append('<ul class="dat-ul" style="width:800px;margin: 0 auto;display: none;"><li class="dat-li clearfix"><div class="left"  id=' + res.data[i].checkPointList[j].id + '>' + res.data[i].checkPointList[j].name + '</div><div class="right"><span class="remove anniu">删除</span><span class="detial cnfg anniu">详情</span></div></li></ul>');
+
+									}
+									$(".data_li").eq(i).append('<ul class="dat-ul" style="width:800px;margin: 0 auto;display: none;"><li class="dat-lia clearfix" style="text-align: center;"><div class=""><span class="jcd_add anniu">增加检查点</span></div></li></ul>');
+								}
+
+							}
+							sec();
+						}
+
+					},
+					error: function(res) {
+						console.log("错误" + res);
+					}
+				});
+
+				function sec() {
+
+					$.each($(".jcd_add"), function() {
+						$(this).off('click').click(function() {
+							var groupid = $(this).parent().parent().parent().parent().attr("id");
+							var groupname = $(this).parent().parent().parent().siblings("div").text();
+							localStorage.setItem("groupname", groupname);
+							localStorage.setItem("groupid", groupid);
+							location.href = 'jcd_add.html'
+						})
+					});
+
+					$.each($(".dian"), function() {
+						$(this).off("click").click(function() {
+							$(this).siblings("ul").toggle();
+							$(this).children().children("img").toggle();
+						})
+					});
+
+					$.each($(".remove"), function() {
+						$(this).off('click').click(function() {
+							var a = $(this).parent().siblings("div").attr('id');
+							//						console.log(a);
+							var msg = "您确定要删除吗？";
+							if(confirm(msg) == true) {
+								//你也可以在这里做其他的操作
+								$.ajax({
+									headers: {
+										Accept: "application/json; charset=utf-8"
+									},
+									type: "post",
+									url: http + "/checkPoint/delete?id=" + a,
+									async: true,
+									//							data: data,
+									dataType: 'json',
+									success: function(res) {
+										console.log(res);
+										if(res.status == 1000) {
+											alert("删除成功！");
+											location.href = 'index.html';
+										} else {
+											alert(res.msg);
+										}
+
+									},
+									error: function(res) {
+										console.log("错误" + res);
+									}
+								});
+								return true;
+							} else {
+								return false;
+							}
+
+						})
+					});
+					$.each($(".cnfg"), function() {
+						$(this).off('click').click(function() {
+							var str = $(this).parent().siblings().attr('id');
+							//							console.log(str)
+							localStorage.setItem("pointid", str);
+							location.href = 'sec.html'
+						})
+					});
+
+				};
+				sec();
+			})
+		</script>
+	</body>
+
+</html>

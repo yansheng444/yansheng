@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="//g.alicdn.com/dingding/dingtalk-jsapi/2.0.8/dingtalk.open.js"></script>
+		<script src="../js/jquery-2.2.3.min.js"></script>
+		
+	</head>
+
+	<body>
+		登录中...
+	</body>
+	<script>
+	//获取location url的参数kaid
+	function GetQueryString(name) { 
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if (r!=null) return (r[2]); return null; 
+	}
+	
+		dd.ready(function() {
+			dd.runtime.permission.requestAuthCode({
+				corpId: "dingf7c429fb7b032da0",
+				onSuccess: function(result) {
+					var source = GetQueryString("source");
+					
+					$.ajax({
+						type:"post",
+						url:"http://auth.easypnp.com/dd_auth/auth/check",
+						data:{"code":JSON.stringify(result),"source":source},
+						dataType: "json",
+						success:function(data){
+							if(data.code == 1000){
+								if(source == 'ygkz'){
+									window.location.href = data.data.url + "?userid="+data.data.userid+"&alias=fuzhuang"+
+										"&email="+ data.data.email +"&mobile="+ data.data.mobile +"&name="+ data.data.name
+								}else if(source == 'dcgl'){
+									window.location.href = data.data.url + "?userinfo="+encodeURI(JSON.stringify(data.data));
+								}else if(source == 'gylrb'){
+									window.location.href = data.data.url + "?userinfo="+encodeURI(JSON.stringify(data.data));
+								}else{
+									window.location.href = data.data.url + "?userinfo="+JSON.stringify(data.data);
+								}
+							}else {
+								alert(data.msg);
+							}
+							
+						},
+						error : function(data) {
+							alert("授权失败，请重试");
+						}
+					});
+					
+				},
+				onFail: function(err) {
+					
+				}
+
+			});
+		});
+		
+	</script>
+
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta http-equiv="Access-Control-Allow-Origin" content="*">-->
+		<title>xiug</title>
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<script src="js/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/config.js"></script>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				font-family: "微软雅黑";
+			}
+			
+			body {
+				background: #fafafa;
+			}
+			
+			.clearfix:after {
+				content: "";
+				clear: both;
+				display: block;
+			}
+			
+			.left {
+				float: left;
+			}
+			
+			.right {
+				float: right;
+			}
+			
+			.header {
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				background: #006CFF;
+				color: white;
+			}
+			
+			.logo {
+				margin-left: 36px;
+			}
+			
+			#content {
+				width: 1160px;
+				margin: 0px auto;
+				padding: 20px 20px;
+				background: #ffffff;
+			}
+			
+			.con {
+				/*height: 44px;*/
+				/*line-height: 44px;*/
+				margin-bottom: 20px;
+			}
+			
+			.cona {
+				/*line-height: 44px;*/
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			
+			.conb {
+				/*line-height: 44px;*/
+				margin-bottom: 20px;
+				margin-left: 140px;
+			}
+			.cnb{    
+				/*line-height: 44px;*/
+    margin-bottom: 20px;
+    margin-left: 140px;}
+			
+			.cnb .tit{width: 240px;}
+			.triggers-id,.condition_detail,.descript,.tg_max_redeliv,.tname,.js_script,.tg_redeliv_interval{
+				width: 500px;
+			}
+			textarea{height: 140px;}
+			.lccid {
+				overflow: hidden;
+				display: inline-block;
+				width: 100%;
+				height: 140px;
+				/*background: #4e4eec;*/
+				color: #fff;
+				font-size: 16px;
+				position: relative;
+				border-radius: 4px;
+				text-decoration: none;
+				text-indent: 0;
+				margin: 10px 0;
+			}
+			
+			.file {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				right: 0;
+				top: 0;
+				opacity: 0;
+			}
+			
+			.lccid>img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 1;
+			}
+			
+			.title {
+				    color: #FFF;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin: -30px 0 0 0;
+    letter-spacing: 2px;
+    font-size: 16px;
+    text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header clearfix">
+			<div class="head left">
+				<img src="img/neibu225x50.jpg" alt="" class="logo" />
+			</div>
+			<div id="back" class="right" style="margin-right: 200px;font-weight: 400;cursor: pointer;">
+				返回首页
+			</div>
+			<div id="back1" class="right" style="margin-right: 20px;font-weight: 400;cursor: pointer;">
+				返回上一页
+			</div>
+		</div>
+		<div id="content">
+			<div id="" class="neir" style="padding: 5px;">
+				<div class="right all" style="width: 82px;height: 32px;background: #26b8fb;color: white;text-align: center;line-height: 32px;border-radius: 7px;cursor: pointer;margin: 0 auto;">格式化</div>
+				
+				<div class="conb clearfix cnb">
+					<div class="left tit">时间表达式详情:</div>
+					<div class="left">
+						<input class="condition_detail" type="text" placeholder="请输入" />
+					</div>
+				</div>
+				<div class="conb clearfix cnb">
+					<div class="left tit">描述:</div>
+					<div class="left">
+						<!--<input class="descript" type="text" placeholder="请输入" />-->
+						<textarea class="descript"></textarea>
+					</div>
+				</div>
+				<div class="conb clearfix cnb">
+					<div class="left tit">名称:</div>
+					<div class="left">
+						<input class="tname" type="text" placeholder="请输入" />
+					</div>
+				</div>
+				<div class="conb clearfix cnb">
+					<div class="left tit">最大重复发送次数:</div>
+					<div class="left">
+						<input class="tg_max_redeliv" type="text" placeholder="请输入" />
+					</div>
+				</div>
+				<div class="conb clearfix cnb">
+					<div class="left tit">重复发送时间间隔(分):</div>
+					<div class="left">
+						<input class="tg_redeliv_interval" type="text" placeholder="请输入" />
+					</div>
+				</div>
+				<div class="conb clearfix cnb">
+					<div class="left tit">js脚本:</div>
+					<div class="left">
+						<!--<input class="js_script" type="text" placeholder="请输入" />-->
+						<textarea class="js_script"></textarea>
+					</div>
+				</div>
+				<div class="conb clearfix cnb">
+					<div class="left tit">图片:</div>
+					<div class="left" style="width: 120px;">
+						<div class="lccid">
+							<!--<p class="title">-->
+								<!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								行驶证</p>-->
+							<img src="" / class="img trg_img">
+							<!--<form action="" method="" name="fileinfo">-->
+								
+							
+								<input type="file" class="file" id="file" placeholder="ICCID" accept="image/*" capture="camera" style="width: 100%;height: 100%;">
+							<!--</form>-->
+						</div>
+					</div>
+				</div>
+				
+				<div class="conb clearfix cnb">
+					<div class="left tit">是否文件发送:</div>
+					<div class="left">
+						是<input type="radio" class="is_file" name="sex" value="1"/>否<input type="radio" class="is_file" name="sex"  value="0"/>
+					</div>
+				</div>
+				<div class="conb clearfix cnb">
+					<div class="left tit">是否立即发送:</div>
+					<div class="left">
+						是<input type="radio" class="is_right" name="sex1" value="1"/>否<input type="radio" class="is_right" name="sex1"  value="0"/>
+					</div>
+				</div>
+				<div class="conb clearfix cnb">
+					<div class="left tit">是否跟随检查点执行:</div>
+					<div class="left">
+						是<input type="radio" class="tg_follow" name="sex2" value="1"/>否<input type="radio" class="tg_follow" name="sex2"  value="0"/>
+					</div>
+				</div>
+			</div>
+				<div class="con">
+					<div class="baoc" style="width: 102px;height: 42px;background: #26b8fb;color: white;text-align: center;line-height: 42px;border-radius: 7px;cursor: pointer;margin: 0 auto;">保存</div>
+				</div>
+			</div>
+
+			<script>
+				$(function() {
+					
+					$("#back").off("click").click(function() {
+						location.href = 'index.html'
+					})
+					$("#back1").off("click").click(function(){
+						window.history.go(-1);
+					})
+//					从缓存中取值
+					$(".condition_detail").val(localStorage.getItem("condition_detail"));
+					$(".descript").val(localStorage.getItem("descript"));
+					$(".triggers-id").val(localStorage.getItem("triggers-id"));
+					$(".js_script").val(localStorage.getItem("js_script"));
+					$(".tg_max_redeliv").val(localStorage.getItem("tg_max_redeliv"));
+					$(".tg_redeliv_interval").val(localStorage.getItem("tg_redeliv_interval"));
+					$(".tname").val(localStorage.getItem("tname"));
+					$(".trg_img").attr("src",localStorage.getItem("trg_img"));
+					
+					if(localStorage.getItem("is_file") == 0){
+						$("input[name='sex']").eq(1).attr("checked","checked");
+					}else{
+						$("input[name='sex']").eq(0).attr("checked","checked");
+					}
+					
+					if(localStorage.getItem("is_right") == 0){
+						$("input[name='sex1']").eq(1).attr("checked","checked");
+					}else{
+						$("input[name='sex1']").eq(0).attr("checked","checked");
+					}
+					
+					if(localStorage.getItem("tg_follow") == 0){
+						$("input[name='sex2']").eq(1).attr("checked","checked");
+					}else{
+						$("input[name='sex2']").eq(0).attr("checked","checked");
+					}
+					
+					$(".all").off("click").click(function(){
+						var msg = "您确定要清除所有数据吗？";
+							if(confirm(msg) == true) {
+								//你也可以在这里做其他的操作
+								$("input").val('');
+								$("textarea").val('');
+								return true;
+							} else {
+								return false;
+							}
+						
+					})
+					
+					//选择上传图片并预览
+					var videoupload;
+					$(".lccid").on("change", "input[type=file]", function() {
+						
+						$(this).prev().css("opacity","1")
+						var filePath = $(this).val();//读取图片路径
+						
+						var fr = new FileReader();//创建new FileReader()对象
+						var imgObj = this.files[0];//获取图片
+						
+						fr.readAsDataURL(imgObj);//将图片读取为DataURL
+						var obj = $(this).prev()[0];//
+					
+						if(filePath.indexOf("jpg") != -1 || filePath.indexOf("JPG") != -1 || filePath.indexOf("PNG") != -1 || filePath.indexOf("png") != -1) {
+							var arr = filePath.split('\\');
+							var fileName = arr[arr.length - 1];
+						
+							$(this).parent().next().show();
+							fr.onload = function() {
+								obj.src = this.result;
+//								console.log(obj.src);
+								videoupload = obj.src;
+							};
+						} else {
+							$(this).parent().next().show();
+							$(this).parent().next().children("i").html("您未上传文件，或者您上传文件类型有误！").css("color", "red");
+							//$(this).parent().next().html("您未上传文件，或者您上传文件类型有误！").css("color","red");
+							return false
+						}
+					});
+					
+					
+					
+					
+					
+					var data = {};
+					var dat = [];
+					
+					
+					
+					//input值变化data变化
+					$.each($('input'), function() {
+						$(this).change(function(){
+//							console.log($(this).parent().siblings('div').text());
+//							console.log($(this).val());
+							data = {
+								"id":localStorage.getItem("triggerid"),
+				                "condition_detail":$(".condition_detail").val(),
+				                "js_script":$(".js_script").val(),
+				                "is_right":$('input[name="sex1"]:checked').val(),
+				                "name":$(".tname").val(),
+				                "is_file":$('input[name="sex"]:checked').val(),
+				                "descript":$(".descript").val(),
+//				                "template":$(".template").text(),
+				                "tg_follow":$('input[name="sex2"]:checked').val(),
+				                "tg_redeliv_interval":$(".tg_redeliv_interval").val(),
+				                "tg_max_redeliv":$(".tg_max_redeliv").val(),
+				                "img_url":$(".trg_img").attr("src")
+							}
+							
+//							console.log(data);
+							})
+						$(".baoc").off("click").click(function() {
+							data = {
+								"id":localStorage.getItem("triggerid"),
+				                "condition_detail":$(".condition_detail").val(),
+				                "js_script":$(".js_script").val(),
+				                "is_right":$('input[name="sex1"]:checked').val(),
+				                "name":$(".tname").val(),
+				                "is_file":$('input[name="sex"]:checked').val(),
+				                "descript":$(".descript").val(),
+//				                "template":$(".template").text(),
+				                "tg_follow":$('input[name="sex2"]:checked').val(),
+				                "tg_redeliv_interval":$(".tg_redeliv_interval").val(),
+				                "tg_max_redeliv":$(".tg_max_redeliv").val(),
+				                "img_url":$(".trg_img").attr("src")
+							}
+							console.log(data);
+							$.ajax({
+								headers: {
+									Accept: "application/json; charset=utf-8"
+								},
+								type: "post",
+								url: http + "/trigger/update",
+								async: true,
+								data: data,
+								dataType: 'json',
+								success: function(res) {
+									console.log(res);
+									if(res.status == 1000){
+										alert("修改成功！");
+										window.history.go(-1);
+									}else{
+										alert(res.msg);
+									}
+									
+								},
+								error: function(res) {
+									console.log("错误" + res);
+								}
+							});
+						})
+					});
+
+				})
+			</script>
+	</body>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>消息订阅</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/lc_switch.min.js"></script>
+		<link rel="stylesheet" href="css/config.css" />
+		<link rel="stylesheet" href="css/mine.css" />
+		<link rel="stylesheet" type="text/css" href="css/lc_switch.css"/>
+		<style>
+			body {
+				background: #fff;
+				color: #333;
+				overflow-x: hidden;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body id='main'>
+		<div class="header">我的订阅列表</div>
+		<div id="content">
+			<ul>
+				<!--<li class="clearFix">
+					<img src="img/u=344180002,2432564216&fm=27&gp=0.jpg" alt="" class="left toux"/>
+					<div class="txt left clearFix">
+						<div class="txt_zi left">
+							<p class="txt_shuom">应付款周报</p>
+							<p class="txt_zhuangt">审批完成已订阅</p>
+						</div>
+						<input type="checkbox" name="check-3" value="6" class="lcs_check lcs_tt1 left" checked="checked" autocomplete="off" />
+						
+					</div>
+				</li>-->
+			</ul>
+		</div>
+		
+		<div id='footer' style="">
+			<div class="zhuti">
+				<img src="img/zt.png" alt="" class="zhut" style="display: none;"/>
+				<img src="img/zt0.png" alt="" class="zhut"/>
+				<div class="zhut_z">主题</div>
+			</div>
+			<div class="mine">
+				<img src="img/wd.png" class="min"/>
+				<img src="img/wd0.png" class="min" style="display: none;"/>
+				<div class="min_z act">我的</div>
+			</div>
+		</div>
+		<!--<div class="add" style="position: absolute;left: 34%;top: 93%;"><div><img src="img/微信图片_20180920170931.png" alt="" /></div></div>-->
+		<script>
+			$(function(){
+				
+				var userid = localStorage.getItem("user_id");
+				//请求我的订阅列表
+			    $.ajax({
+					type:"post",
+//					url:"http://172.16.2.28/data/group/data?userid="+user_id,
+//http://localhost:8044/data/checkPoint/mydata?userid=30947
+					url: http+"trigger/selfDataFront?userid="+userid,
+					async:true,
+					dataType:'json',
+//					data:{
+//						"user_id":user_id,
+//					},
+					success:function(res){
+						console.log(res);
+						if(res.status == 1000){
+							for(var i = 0; i < res.data.length; i++){
+								if(res.data.length == 0){
+									alert("暂无数据！");
+								}else{
+									$("#content ul").append('<li class="clearFix"><img src="img/u=344180002,2432564216&fm=27&gp=0.jpg" alt="" class="left toux"/><div class="txt left clearFix"><div class="txt_zi left"><p class="txt_shuom" is_sub='+res.data[i].is_sub+' id='+res.data[i].id+' check_id='+res.data[i].check_id+' group_id='+res.data[i].group_id+'>'+res.data[i].name+'</p><p class="txt_zhuangt">订阅成功</p></div><input type="checkbox" name="check-3" value="6" class="lcs_check left" autocomplete="off" /></div></li>');
+								}
+							}
+							func();
+						}
+						if(res.status == 1001){
+							alert(res.msg);
+						}
+					},
+					error:function(res){
+						console.log("错误"+res);
+					}
+				});
+			    function func(){
+			    	
+			    $(document).ready(function(e) {
+					$('input').lc_switch();
+					// triggered each time a field changes status
+					$('body').delegate('.lcs_check', 'lcs-statuschange', function() {
+						var status = ($(this).is(':checked')) ? 'checked' : 'unchecked';
+						console.log('field changed status: '+ status );
+					});
+				
+					// triggered each time a field is checked
+					$('body').delegate('.lcs_check', 'lcs-on', function() {
+						console.log('field is checked');
+						
+						var a = $(this).parent(".lcs_wrap").siblings("div").children(".txt_shuom").attr("id");
+						var point_name = $(this).parent(".lcs_wrap").siblings("div").children(".txt_shuom").text();
+//						console.log(a,point_name);
+						
+						var msg = "您确定要取消订阅吗？";
+				        if (confirm(msg)==true){
+				        	$(this).parent(".lcs_wrap").siblings("div").children(".txt_zhuangt").text("申请订阅");
+				        	//你也可以在这里做其他的操作
+							$.ajax({
+								type:"post",
+								url:http+"process/delete",
+								async:true,
+								data:{
+									"userid":userid,
+									"point_id":a,
+									"point_name":point_name
+								},
+								dataType:'json',
+								success:function(res){
+	//								console.log("成功");
+									console.log(res);
+									if(res.status == 1000){
+	//									$(this).toggle();
+										location.href="mine.html?userid="+userid
+									}else{
+										alert(res.msg);
+									}
+								},
+								error:function(res){
+									console.log("错误"+res);
+								}
+							});
+				            return true;
+				        }else{
+//				            return false;
+				            location.href="mine.html?userid="+userid
+				        }
+						
+					});
+					
+					
+					// triggered each time a is unchecked
+					$('body').delegate('.lcs_check', 'lcs-off', function() {
+						console.log('field is unchecked');
+						var a = $(this).parent(".lcs_wrap").siblings("div").children(".txt_shuom").attr("id");
+						var point_name = $(this).parent(".lcs_wrap").siblings("div").children(".txt_shuom").text();
+						$(this).parent(".lcs_wrap").siblings("div").children(".txt_zhuangt").text("审批中");
+						$(this).attr("disabled","disabled");
+						
+						$.ajax({
+								type: "post",
+								url: http + "subuser/apply",
+								async: true,
+								data: {
+									"userid": userid,
+									"point_id": a,
+									"point_name": point_name
+								},
+								dataType: 'json',
+								success: function(res) {
+									console.log(res);
+									if(res.status == 1000) {
+										alert(res.msg);
+										location.href = "mine.html?userid="+userid
+									} else {
+										alert(res.msg);
+									}
+								},
+								error: function(res) {
+									console.log("错误" + res);
+								}
+							});
+					});
+				});	
+			    
+				
+				}
+				
+				
+			    $(".zhuti").off("click").click(function(){
+			    	$(this).siblings(".mine").children("div").removeClass("act");
+					$(this).siblings(".mine").children("img").toggle();
+			    	location.href = 'index.html?userid='+userid
+			    })
+			})
+		</script>
+	</body>
+
+</html>
