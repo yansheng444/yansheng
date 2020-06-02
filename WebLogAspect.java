@@ -1,29 +1,17 @@
-package com.ygyw.ding.configration;
+package com.hxpjw.config;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.connector.RequestFacade;
-import org.apache.http.impl.client.StandardHttpRequestRetryHandler;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import com.google.gson.Gson;
-import com.ygyw.ding.base.BaseController;
+import com.hxpjw.controller.BaseController;
 
 /**
  * 日志log类，通过spring AOP 实现记录包下面所有public 方法的参数和返回值
@@ -37,7 +25,9 @@ public class WebLogAspect extends BaseController {
 	Gson json = new Gson();
 	
 	
-	@Pointcut("(execution( * com.ygyw.ding.controller..*.*(..))) || (execution( * com.ygyw.ding.service..*.*(..)))  || (execution( * com.ygyw.ding.alibaba..*.*(..)))") 
+	@Pointcut("(execution( * com.hxpjw.controller..*.*(..))) || (execution( * com.hxpjw.service..*.*(..)))"
+			+ ""
+			+ " || (execution( * com.hxpjw.third..*.*(..))) ") 
 	public void webLog() {
 	}
 	
@@ -61,7 +51,13 @@ public class WebLogAspect extends BaseController {
 		
 		StringBuilder param = new StringBuilder(256);
 		
+		
 		for(Object o : args){
+			
+			if(o instanceof HttpServletResponse){
+				continue;
+			}
+			
 			if(o instanceof StandardMultipartHttpServletRequest){
 				StandardMultipartHttpServletRequest request = (StandardMultipartHttpServletRequest)o;
 				param.append(" 正常参数：" + json.toJson(request.getQueryString()));
@@ -71,7 +67,11 @@ public class WebLogAspect extends BaseController {
 				Map<String, String[]> parameterMap = r.getParameterMap();
 				param.append(" 正常参数：" + json.toJson(parameterMap));
 			}else{
-				param.append("json参数：" +json.toJson(o));
+				try{
+					param.append("json参数：" +json.toJson(o));
+				}catch(Exception e){
+					
+				}
 			}
 		}
 		
@@ -90,9 +90,8 @@ public class WebLogAspect extends BaseController {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@AfterReturning(returning="o",pointcut="webLog()")
+//	@AfterReturning(returning="o",pointcut="webLog()")
 	public void doAfterReturning(JoinPoint joinPoint,Object o) {
-		
 		if(o != null){
 			System.err.println(joinPoint.getSignature().getDeclaringTypeName() + "."
 					+ joinPoint.getSignature().getName() + "():返回值：" + json.toJson(o));
@@ -100,7 +99,6 @@ public class WebLogAspect extends BaseController {
 			logger.info(joinPoint.getSignature().getDeclaringTypeName() + "."
 				+ joinPoint.getSignature().getName() + "():返回值：" + json.toJson(o));
 		}
-		
 		
 	}
 	
